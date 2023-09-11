@@ -16,10 +16,9 @@ public class Venda {
     private Pagamento pagamento;
     private boolean finalizada = false;
 
-    public Venda(int idVenda, LocalDate data, Cliente Cliente) {
+    public Venda(int idVenda, LocalDate data) {
         this.idVenda = idVenda;
         this.data = data;
-        this.Cliente = Cliente;
     }
 
     public int getIdVenda() {
@@ -86,13 +85,5 @@ public class Venda {
         this.carrinho = carrinho;
     }
     
-    public int randomID(){
-        Random gerador = new Random();
-        int idRandom = -1;
-        do{
-            idRandom = gerador.nextInt();
-        }while(idRandom < 0);
-        return idRandom;
-    }
 }
 

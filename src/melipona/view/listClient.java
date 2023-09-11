@@ -178,6 +178,7 @@ public class listClient extends javax.swing.JFrame {
 
     private void bntVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntVoltarActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_bntVoltarActionPerformed
 
     private void bntImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImportActionPerformed

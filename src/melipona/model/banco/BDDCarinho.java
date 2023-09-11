@@ -4,10 +4,22 @@
  */
 package melipona.model.banco;
 
+import java.util.ArrayList;
+import java.util.List;
+import melipona.model.Carrinho;
+
 /**
  *
  * @author uilto
  */
 public class BDDCarinho {
-    
+    static List<Carrinho> allCar = new ArrayList<>();
+
+    public static List<Carrinho> getAllCar() {
+        return allCar;
+    }
+
+    public static void setAllCar(List<Carrinho> allCar) {
+        BDDCarinho.allCar = allCar;
+    }
 }

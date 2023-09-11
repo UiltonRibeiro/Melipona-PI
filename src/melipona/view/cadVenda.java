@@ -4,6 +4,12 @@
  */
 package melipona.view;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Date;
+import melipona.Control.Funcoes;
+import melipona.model.Venda;
+
 /**
  *
  * @author uilto
@@ -15,6 +21,9 @@ public class cadVenda extends javax.swing.JFrame {
      */
     public cadVenda() {
         initComponents();
+        LocalDate dataAtual = LocalDate.now();
+        this.venda = new Venda(Funcoes.getVendas().size(),dataAtual);
+        venda.
     }
 
     /**
@@ -523,4 +532,6 @@ public class cadVenda extends javax.swing.JFrame {
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+    
+    Venda venda;
 }
