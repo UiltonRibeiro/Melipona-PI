@@ -1,7 +1,6 @@
 package melipona.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Cliente extends Pessoa {
     private Carrinho carrinho;

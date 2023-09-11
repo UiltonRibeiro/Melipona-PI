@@ -4,6 +4,13 @@
  */
 package melipona.view;
 
+import java.text.NumberFormat;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import melipona.Control.Funcoes;
+import melipona.model.Cliente;
+import melipona.model.Produto;
+
 /**
  *
  * @author uilto
@@ -15,6 +22,7 @@ public class listClient extends javax.swing.JFrame {
      */
     public listClient() {
         initComponents();
+        preencherAll(Funcoes.getClientes());
     }
 
     /**
@@ -227,4 +235,22 @@ public class listClient extends javax.swing.JFrame {
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+    
+    public void preencherAll(List<Cliente> listCliente){
+       
+        String columns[] = {"ID","nome", "CPF"};
+        String dados[][] = new String[listCliente.size()][columns.length];
+        int i=0;
+        
+        for (Cliente cliente : listCliente) {
+            dados[i] = new String[]{
+                String.valueOf(cliente.getId()),
+                cliente.getNome(),
+                String.valueOf(cliente.getCPF()),
+            };
+            i++;
+        }
+        DefaultTableModel model = new DefaultTableModel(dados,columns);
+        tblClientes.setModel(model);
+    }
 }
