@@ -4,6 +4,13 @@
  */
 package melipona.view;
 
+import java.text.NumberFormat;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import melipona.model.Produto;
+import melipona.model.banco.Estoque;
+
 /**
  *
  * @author uilto
@@ -166,6 +173,18 @@ public class listProduto extends javax.swing.JFrame {
 
     private void bntImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImportActionPerformed
         // TODO add your handling code here:
+        try {
+            if (tblProdutos.getSelectedRow() >= 0) {
+                int idProduto = Integer.parseInt((String) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)); 
+                subanexo sub = new subanexo();
+                sub.setProduto(Estoque.estoque.get(idProduto));
+            }else{
+                JOptionPane.showMessageDialog(null, "Selecione uma linha");
+            }
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Importar");
+        }
         
     }//GEN-LAST:event_bntImportActionPerformed
 
@@ -222,4 +241,23 @@ public class listProduto extends javax.swing.JFrame {
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+    
+    public void preencherAll(List<Produto> listProduto){
+       
+        String columns[] = {"ID","nome", "Quantidade","Preço",};
+        String dados[][] = new String[listProduto.size()][columns.length];
+        int i=0;
+        
+        for (Produto produto : listProduto) {
+            dados[i] = new String[]{
+                String.valueOf(produto.getIdProduto()),
+                produto.getNome(),
+                String.valueOf(produto.getQuantEstoque()),
+                NumberFormat.getCurrencyInstance().format(produto.getPreço())
+            };
+            i++;
+        }
+        DefaultTableModel model = new DefaultTableModel(dados,columns);
+        tblProdutos.setModel(model);
+    }
 }

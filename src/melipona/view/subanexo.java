@@ -4,6 +4,8 @@
  */
 package melipona.view;
 
+import melipona.model.Produto;
+
 /**
  *
  * @author uilto
@@ -195,4 +197,14 @@ public class subanexo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+    Produto produto;
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+    
 }
