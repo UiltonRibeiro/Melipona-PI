@@ -13,7 +13,10 @@ import melipona.model.Produto;
  * @author uilto
  */
 public class Estoque {
-    public static List<Produto> estoque = new ArrayList<>();
+    public static List<Produto> estoque = new ArrayList<Produto>(){{
+        add(new Produto(0,"Chocolate",3.50,10,2.10));
+        add(new Produto(1,"Vinho",28.80,10,9.50));
+    }};
 
     public static List<Produto> getEstoque() {
         return estoque;

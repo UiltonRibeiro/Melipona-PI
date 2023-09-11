@@ -22,6 +22,7 @@ public class listProduto extends javax.swing.JFrame {
      */
     public listProduto() {
         initComponents();
+        preencherAll(Estoque.estoque);
     }
 
     /**
@@ -111,8 +112,8 @@ public class listProduto extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblID)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(47, 47, 47)
+                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNome)
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -177,7 +178,9 @@ public class listProduto extends javax.swing.JFrame {
             if (tblProdutos.getSelectedRow() >= 0) {
                 int idProduto = Integer.parseInt((String) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)); 
                 subanexo sub = new subanexo();
-                sub.setProduto(Estoque.estoque.get(idProduto));
+                sub.setDados(Estoque.estoque.get(idProduto));
+                //sub.setProduto();
+                sub.setVisible(true);
             }else{
                 JOptionPane.showMessageDialog(null, "Selecione uma linha");
             }

@@ -12,7 +12,6 @@ import melipona.model.Funcionario;
 import melipona.model.Cargo;
 import melipona.model.Cliente;
 import melipona.model.FormaPG;
-import melipona.model.banco.Estoque;
 import melipona.model.Venda;
 import melipona.view.HomePage;
 
