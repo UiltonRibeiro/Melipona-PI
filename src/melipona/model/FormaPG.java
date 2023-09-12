@@ -19,6 +19,15 @@ public class FormaPG {
     public FormaPG() {
     }
 
+    public FormaPG(int idFormaPG, String forma, boolean parcelar, int maxParc, int juros, boolean jurosAtv) {
+        this.idFormaPG = idFormaPG;
+        this.forma = forma;
+        this.parcelar = parcelar;
+        this.maxParc = maxParc;
+        this.juros = juros;
+        this.jurosAtv = jurosAtv;
+    }
+
     public int getIdFormaPG() {
         return idFormaPG;
     }

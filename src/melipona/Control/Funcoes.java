@@ -24,7 +24,12 @@ public class Funcoes {
     static List<Cliente> Clientes = new ArrayList<>();
     static List<Funcionario> Funcionarios = new ArrayList<>();
     static List<Cargo> Cargos = new ArrayList<>();
-    static List<FormaPG> formasPG = new ArrayList<>();
+    static List<FormaPG> formasPG = new ArrayList<>(){{
+        add(new FormaPG(0, "Debito[Master]", false, 0, 0, false));
+        add(new FormaPG(1,"Credito[Master]",true,12,2, true));
+        add(new FormaPG(2, "Dinheiro", false, 0,0,false));
+        add(new FormaPG(3,"Pix", false, 0,0,false));
+    }};
 
     public static List<Venda> getVendas() {
         return Vendas;

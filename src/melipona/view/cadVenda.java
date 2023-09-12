@@ -8,7 +8,10 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import melipona.Control.Funcoes;
+import melipona.model.Carrinho;
+import melipona.model.Cliente;
 import melipona.model.Venda;
+import melipona.model.banco.BDDCarinho;
 
 /**
  *
@@ -21,9 +24,8 @@ public class cadVenda extends javax.swing.JFrame {
      */
     public cadVenda() {
         initComponents();
-        LocalDate dataAtual = LocalDate.now();
-        this.venda = new Venda(Funcoes.getVendas().size(),dataAtual);
-        venda.
+        
+        Carrinho carrinho = new Carrinho(BDDCarinho.getAllCar().size());
     }
 
     /**
@@ -534,4 +536,17 @@ public class cadVenda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     Venda venda;
+    
+    public boolean verifCarrinho(Cliente cliente){
+        if(cliente.getCarrinho() == null){
+            cliente.setCarrinho(Createcarrinho());
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public Carrinho Createcarrinho(){
+        return new Carrinho(BDDCarinho.getAllCar().size());
+    }
 }
