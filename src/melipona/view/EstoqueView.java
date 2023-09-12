@@ -4,6 +4,7 @@
  */
 package melipona.view;
 
+import melipona.view.ViwsCad.CadProduto;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
