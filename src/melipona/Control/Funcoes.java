@@ -26,7 +26,7 @@ public class Funcoes {
     static List<Cargo> Cargos = new ArrayList<>();
     static List<FormaPG> formasPG = new ArrayList<>(){{
         add(new FormaPG(0, "Debito[Master]", false, 0, 0, false));
-        add(new FormaPG(1,"Credito[Master]",true,12,2, true));
+        add(new FormaPG(1,"Credito[Juros:2%]",true,12,2, true));
         add(new FormaPG(2, "Dinheiro", false, 0,0,false));
         add(new FormaPG(3,"Pix", false, 0,0,false));
     }};

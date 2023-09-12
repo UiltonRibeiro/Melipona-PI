@@ -7,9 +7,11 @@ package melipona.view;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import melipona.Control.Funcoes;
 import melipona.model.Carrinho;
 import melipona.model.Cliente;
+import melipona.model.FormaPG;
 import melipona.model.Venda;
 import melipona.model.banco.BDDCarinho;
 
@@ -26,6 +28,7 @@ public class cadVenda extends javax.swing.JFrame {
         initComponents();
         
         Carrinho carrinho = new Carrinho(BDDCarinho.getAllCar().size());
+        preencherPag(Funcoes.getFormasPG());
     }
 
     /**
@@ -158,7 +161,11 @@ public class cadVenda extends javax.swing.JFrame {
         bntFormPag.setText("Forma de Pagamento:");
 
         cbForm.setBackground(new java.awt.Color(255, 255, 255));
-        cbForm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbForm.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbFormItemStateChanged(evt);
+            }
+        });
 
         txtParcelas.setBackground(new java.awt.Color(255, 255, 255));
         txtParcelas.setForeground(new java.awt.Color(0, 0, 0));
@@ -461,6 +468,12 @@ public class cadVenda extends javax.swing.JFrame {
         pullClient.setVisible(true);
     }//GEN-LAST:event_bntClientActionPerformed
 
+    private void cbFormItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFormItemStateChanged
+        // TODO add your handling code here:
+        int itemIndex = cbForm.getSelectedIndex();
+        txtParcelas.enable(Funcoes.getFormasPG().get(itemIndex).isParcelar());
+    }//GEN-LAST:event_cbFormItemStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -548,5 +561,11 @@ public class cadVenda extends javax.swing.JFrame {
     
     public Carrinho Createcarrinho(){
         return new Carrinho(BDDCarinho.getAllCar().size());
+    }
+    
+    public void preencherPag(List<FormaPG> formas){
+        for (FormaPG forma : formas) {
+            cbForm.addItem(forma.getForma());
+        }
     }
 }
