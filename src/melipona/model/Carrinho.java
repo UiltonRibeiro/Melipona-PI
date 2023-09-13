@@ -14,6 +14,14 @@ public class Carrinho {
     public Carrinho() {
     }
 
+    public List<ItensCarrinho> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItensCarrinho> itens) {
+        this.itens = itens;
+    }
+
     public int getIdCarrinho() {
         return idCarrinho;
     }

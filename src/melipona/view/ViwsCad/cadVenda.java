@@ -4,14 +4,17 @@
  */
 package melipona.view.ViwsCad;
 
+import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import melipona.Control.Funcoes;
 import melipona.model.Carrinho;
 import melipona.model.Cliente;
 import melipona.model.FormaPG;
+import melipona.model.ItensCarrinho;
 import melipona.model.Venda;
 import melipona.model.banco.BDDCarinho;
 import melipona.view.listClient;
@@ -471,7 +474,7 @@ public class cadVenda extends javax.swing.JFrame {
         
         if(pullClient.getClienteSelecionado() != null){
             this.clienteSelecionado = this.pullClient.getClienteSelecionado();
-            System.out.println("Cliente: " + clienteSelecionado.getNome());
+            
         }
     }//GEN-LAST:event_bntClientActionPerformed
 
@@ -574,5 +577,24 @@ public class cadVenda extends javax.swing.JFrame {
         for (FormaPG forma : formas) {
             cbForm.addItem(forma.getForma());
         }
+    }
+    
+    public void preencherCarrinho(Carrinho carrinho){
+        String columns[] = {"ID","Produto", "Quant", "Subtotal"};
+        String dados[][] = new String[carrinho.getItens().size()][columns.length];
+        int i=0;
+        
+        for (ItensCarrinho itens : carrinho.getItens()) {
+            dados[i] = new String[]{
+                String.valueOf(itens.getProduto().getIdProduto()),
+                itens.getProduto().getNome(),
+                String.valueOf(itens.getQuant()),
+                NumberFormat.getCurrencyInstance().format(itens.getSubtotal())
+            };
+            i++;
+        }
+        DefaultTableModel model = new DefaultTableModel(dados,columns);
+        tblProdutos.setModel(model);
+        
     }
 }
