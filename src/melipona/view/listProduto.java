@@ -4,6 +4,7 @@
  */
 package melipona.view;
 
+import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -15,12 +16,13 @@ import melipona.model.banco.Estoque;
  *
  * @author uilto
  */
-public class listProduto extends javax.swing.JFrame {
+public class listProduto extends javax.swing.JDialog {
 
     /**
      * Creates new form listClient
      */
-    public listProduto() {
+    public listProduto(java.awt.Frame parent,boolean modal) {
+        super(parent, modal);
         initComponents();
         preencherAll(Estoque.estoque);
     }
@@ -227,7 +229,14 @@ public class listProduto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listProduto().setVisible(true);
+                listProduto dialog = new listProduto(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

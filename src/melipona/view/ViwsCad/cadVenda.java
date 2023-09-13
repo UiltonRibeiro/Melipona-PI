@@ -32,8 +32,6 @@ public class cadVenda extends javax.swing.JFrame {
     public cadVenda() {
         initComponents();
         
-        this.carrinho = new Carrinho();
-        
         preencherPag(Funcoes.getFormasPG());
     }
 
@@ -455,7 +453,7 @@ public class cadVenda extends javax.swing.JFrame {
 
     private void bntAddProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAddProdActionPerformed
         // TODO add your handling code here:
-        listProduto listaProduto = new listProduto();
+        listProduto listaProduto = new listProduto(null, true);
         listaProduto.setVisible(true);
     }//GEN-LAST:event_bntAddProdActionPerformed
 
@@ -474,7 +472,12 @@ public class cadVenda extends javax.swing.JFrame {
         
         if(pullClient.getClienteSelecionado() != null){
             this.clienteSelecionado = this.pullClient.getClienteSelecionado();
-            
+            if(clienteSelecionado.getCarrinho() != null){
+                preencherCarrinho(clienteSelecionado.getCarrinho());
+            }else{
+                Carrinho carrinho = new Carrinho();
+                clienteSelecionado.setCarrinho(carrinho);
+            }
         }
     }//GEN-LAST:event_bntClientActionPerformed
 
@@ -559,19 +562,8 @@ public class cadVenda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     Venda venda;
-    Carrinho carrinho;
     Cliente clienteSelecionado;
     listClient pullClient = new listClient(null, true);
-    
-    public boolean verifCarrinho(Cliente cliente){
-        if(cliente.getCarrinho() == null){
-            cliente.setCarrinho(carrinho);
-            return true;
-        }else{
-            this.carrinho = cliente.getCarrinho();
-            return false;
-        }
-    }
     
     public void preencherPag(List<FormaPG> formas){
         for (FormaPG forma : formas) {
