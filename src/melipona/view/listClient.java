@@ -4,6 +4,7 @@
  */
 package melipona.view;
 
+import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -15,12 +16,13 @@ import melipona.model.Produto;
  *
  * @author uilto
  */
-public class listClient extends javax.swing.JFrame {
+public class listClient extends javax.swing.JDialog {
 
     /**
      * Creates new form listClient
      */
-    public listClient() {
+    public listClient(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
         preencherAll(Funcoes.getClientes());
     }
@@ -183,6 +185,15 @@ public class listClient extends javax.swing.JFrame {
 
     private void bntImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImportActionPerformed
         // TODO add your handling code here:
+        if(tblClientes.getSelectedRow() > -1 ){
+            int idCliente = Integer.parseInt((String) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0)) ;
+            for (Cliente cliente : Funcoes.getClientes()) {
+                if(cliente.getId() == idCliente){
+                    setClienteSelecionado(cliente);
+                    this.dispose();
+                }
+            }
+        }
     }//GEN-LAST:event_bntImportActionPerformed
 
     private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
@@ -219,7 +230,14 @@ public class listClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listClient().setVisible(true);
+                listClient dialog = new listClient(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -237,6 +255,17 @@ public class listClient extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
     
+    public Cliente clienteSelecionado;
+
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
+    }
+
+    public void setClienteSelecionado(Cliente clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
+    }
+    
+     
     public void preencherAll(List<Cliente> listCliente){
        
         String columns[] = {"ID","nome", "CPF"};

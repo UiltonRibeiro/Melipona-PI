@@ -11,8 +11,7 @@ public class Carrinho {
     
     Scanner Entrada = new Scanner(System.in);
 
-    public Carrinho(int idCarrinho) {
-        this.idCarrinho = idCarrinho;
+    public Carrinho() {
     }
 
     public int getIdCarrinho() {

@@ -29,7 +29,8 @@ public class cadVenda extends javax.swing.JFrame {
     public cadVenda() {
         initComponents();
         
-        Carrinho carrinho = new Carrinho(BDDCarinho.getAllCar().size());
+        this.carrinho = new Carrinho();
+        
         preencherPag(Funcoes.getFormasPG());
     }
 
@@ -466,8 +467,12 @@ public class cadVenda extends javax.swing.JFrame {
 
     private void bntClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntClientActionPerformed
         // TODO add your handling code here:
-        listClient pullClient = new listClient();
-        pullClient.setVisible(true);
+        this.pullClient.setVisible(true);
+        
+        if(pullClient.getClienteSelecionado() != null){
+            this.clienteSelecionado = this.pullClient.getClienteSelecionado();
+            System.out.println("Cliente: " + clienteSelecionado.getNome());
+        }
     }//GEN-LAST:event_bntClientActionPerformed
 
     private void cbFormItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFormItemStateChanged
@@ -551,18 +556,18 @@ public class cadVenda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     Venda venda;
+    Carrinho carrinho;
+    Cliente clienteSelecionado;
+    listClient pullClient = new listClient(null, true);
     
     public boolean verifCarrinho(Cliente cliente){
         if(cliente.getCarrinho() == null){
-            cliente.setCarrinho(Createcarrinho());
+            cliente.setCarrinho(carrinho);
             return true;
         }else{
+            this.carrinho = cliente.getCarrinho();
             return false;
         }
-    }
-    
-    public Carrinho Createcarrinho(){
-        return new Carrinho(BDDCarinho.getAllCar().size());
     }
     
     public void preencherPag(List<FormaPG> formas){

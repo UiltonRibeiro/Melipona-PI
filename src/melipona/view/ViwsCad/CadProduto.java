@@ -282,7 +282,7 @@ public class CadProduto extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtValid;
     // End of variables declaration//GEN-END:variables
     
-    boolean edit = false;
+    public boolean edit = false;
     Produto produtoEdit;
 
     public boolean isEdit() {

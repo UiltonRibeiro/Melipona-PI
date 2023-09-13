@@ -21,7 +21,9 @@ import melipona.view.HomePage;
  */
 public class Funcoes {
     static List<Venda> Vendas = new ArrayList<>();
-    static List<Cliente> Clientes = new ArrayList<>();
+    static List<Cliente> Clientes = new ArrayList<>(){{
+        add(new Cliente(0,"Teste","123",LocalDate.now(),"123","123","Email"));
+    }};
     static List<Funcionario> Funcionarios = new ArrayList<>();
     static List<Cargo> Cargos = new ArrayList<>();
     static List<FormaPG> formasPG = new ArrayList<>(){{

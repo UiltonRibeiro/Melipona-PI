@@ -11,6 +11,7 @@ import melipona.view.ViwsCad.CadClient;
 import melipona.view.ViwsCad.cadVenda;
 import melipona.Control.Funcoes;
 import melipona.model.Funcionario;
+import melipona.view.ViwsCad.cadFormPagamento;
 
 /**
  *
