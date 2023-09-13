@@ -7,18 +7,18 @@ import java.util.Scanner;
 
 public class Carrinho {
     private int idCarrinho;
-    private List<ItensCarrinho> itens = new ArrayList<ItensCarrinho>();
+    private List<ItemCarrinho> itens = new ArrayList<ItemCarrinho>();
     
     Scanner Entrada = new Scanner(System.in);
 
     public Carrinho() {
     }
 
-    public List<ItensCarrinho> getItens() {
+    public List<ItemCarrinho> getItens() {
         return itens;
     }
 
-    public void setItens(List<ItensCarrinho> itens) {
+    public void setItens(List<ItemCarrinho> itens) {
         this.itens = itens;
     }
 
@@ -29,32 +29,5 @@ public class Carrinho {
     public void setIdCarrinho(int idCarrinho) {
         this.idCarrinho = idCarrinho;
     }
-    
-    public void addItem(int id){
-        System.out.println("Informe a quantidade que deseja:");
-        int quant = Entrada.nextInt();
-        Entrada.nextLine();
-        itens.add(new ItensCarrinho(Estoque.getProduto(id,quant),quant));
-        itens.get(itens.size() - 1).calcSubTotal();
-    }
-    
-    public void exibirAllItens(){
-        System.out.println("id \t nome \t quant \t subtotal");
-        for (ItensCarrinho item : itens) {
-            System.out.println(item.getProduto().getIdProduto() + "\t" + item.getProduto().getNome() + "\t" + item.getQuant() + "\t" + item.getSubtotal());
-        }
-    }
-    
-    public int getIndex(int id){
-        int cont = 0;
-        for (ItensCarrinho item : itens) {
-            if(item.getProduto().getIdProduto() == id){
-                return cont;
-            }
-            cont++;
-        }
-        return cont;
-    }
-    
     
 }

@@ -1,13 +1,14 @@
 package melipona.model;
 
-public class ItensCarrinho {
+public class ItemCarrinho {
     private Produto produto;
     private int quant;
     private double subtotal;
 
-    public ItensCarrinho(Produto produto, int quant) {
+    public ItemCarrinho(Produto produto, int quant) {
         this.produto = produto;
         this.quant = quant;
+        this.subtotal = produto.getPreço() * quant;
     }
 
     public Produto getProduto() {
@@ -34,7 +35,4 @@ public class ItensCarrinho {
         this.subtotal = subtotal;
     }
     
-    public void calcSubTotal(){
-        subtotal = produto.getPreço() * quant;
-    }
 }

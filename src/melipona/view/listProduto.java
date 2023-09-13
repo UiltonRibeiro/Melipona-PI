@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import melipona.model.ItemCarrinho;
 import melipona.model.Produto;
 import melipona.model.banco.Estoque;
 
@@ -179,10 +180,13 @@ public class listProduto extends javax.swing.JDialog {
         try {
             if (tblProdutos.getSelectedRow() >= 0) {
                 int idProduto = Integer.parseInt((String) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)); 
-                subanexo sub = new subanexo();
+                subanexo sub = new subanexo(null, true);
                 sub.setDados(Estoque.estoque.get(idProduto));
-                //sub.setProduto();
                 sub.setVisible(true);
+                if(sub.getItem() != null){
+                    setItem(sub.getItem());
+                    this.dispose();
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "Selecione uma linha");
             }
@@ -253,6 +257,16 @@ public class listProduto extends javax.swing.JDialog {
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+    
+    public ItemCarrinho item;
+
+    public ItemCarrinho getItem() {
+        return item;
+    }
+
+    public void setItem(ItemCarrinho item) {
+        this.item = item;
+    }
     
     public void preencherAll(List<Produto> listProduto){
        

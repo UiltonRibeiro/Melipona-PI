@@ -4,19 +4,23 @@
  */
 package melipona.view;
 
+import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
+import melipona.model.ItemCarrinho;
 import melipona.model.Produto;
+import melipona.model.banco.Estoque;
 
 /**
  *
  * @author uilto
  */
-public class subanexo extends javax.swing.JFrame {
+public class subanexo extends javax.swing.JDialog {
 
     /**
      * Creates new form subanexo
      */
-    public subanexo() {
+    public subanexo(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
     }
 
@@ -177,6 +181,11 @@ public class subanexo extends javax.swing.JFrame {
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         // TODO add your handling code here:
+        int quant = Integer.parseInt(txtQuant.getText());
+        this.item = new ItemCarrinho(produto, quant);
+        Estoque.estoque.get(
+                produto.getIdProduto()).setQuantEstoque(produto.getQuantEstoque() - quant);
+        this.dispose();
         
     }//GEN-LAST:event_bntSalvarActionPerformed
 
@@ -225,7 +234,14 @@ public class subanexo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new subanexo().setVisible(true);
+                subanexo dialog = new subanexo(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -244,6 +260,23 @@ public class subanexo extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     public Produto produto;
+    ItemCarrinho item;
+
+    public ItemCarrinho getItem() {
+        return item;
+    }
+
+    public void setItem(ItemCarrinho item) {
+        this.item = item;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
     
     public void setDados(Produto produto){
         this.produto = produto;

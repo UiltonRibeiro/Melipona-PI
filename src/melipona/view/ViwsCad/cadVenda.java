@@ -14,7 +14,7 @@ import melipona.Control.Funcoes;
 import melipona.model.Carrinho;
 import melipona.model.Cliente;
 import melipona.model.FormaPG;
-import melipona.model.ItensCarrinho;
+import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
 import melipona.model.banco.BDDCarinho;
 import melipona.view.listClient;
@@ -31,6 +31,9 @@ public class cadVenda extends javax.swing.JFrame {
      */
     public cadVenda() {
         initComponents();
+        
+        txtClient.setEnabled(false);
+        txtID.setEnabled(false);
         
         preencherPag(Funcoes.getFormasPG());
     }
@@ -455,6 +458,10 @@ public class cadVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
         listProduto listaProduto = new listProduto(null, true);
         listaProduto.setVisible(true);
+        if(clienteSelecionado != null && listaProduto.getItem() != null){
+            clienteSelecionado.getCarrinho().getItens().add(listaProduto.getItem());;
+            preencherCarrinho(clienteSelecionado.getCarrinho());
+        }
     }//GEN-LAST:event_bntAddProdActionPerformed
 
     private void bntDeletProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDeletProdActionPerformed
@@ -472,6 +479,12 @@ public class cadVenda extends javax.swing.JFrame {
         
         if(pullClient.getClienteSelecionado() != null){
             this.clienteSelecionado = this.pullClient.getClienteSelecionado();
+            txtClient.setEnabled(true);
+            txtID.setEnabled(true);
+            txtID.setText(toString().valueOf(clienteSelecionado.getId()));
+            txtClient.setText(clienteSelecionado.getNome());
+            txtClient.setEnabled(false);
+            txtID.setEnabled(false);
             if(clienteSelecionado.getCarrinho() != null){
                 preencherCarrinho(clienteSelecionado.getCarrinho());
             }else{
@@ -576,7 +589,7 @@ public class cadVenda extends javax.swing.JFrame {
         String dados[][] = new String[carrinho.getItens().size()][columns.length];
         int i=0;
         
-        for (ItensCarrinho itens : carrinho.getItens()) {
+        for (ItemCarrinho itens : carrinho.getItens()) {
             dados[i] = new String[]{
                 String.valueOf(itens.getProduto().getIdProduto()),
                 itens.getProduto().getNome(),
