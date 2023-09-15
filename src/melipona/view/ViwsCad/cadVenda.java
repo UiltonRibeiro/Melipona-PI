@@ -684,6 +684,6 @@ public class cadVenda extends javax.swing.JFrame {
     }
     
     public void preencherEndereço(Cliente cliente){
-        txtBairro.setText(cliente.getEnderecos());
+        //txtBairro.setText(cliente.getEnderecos());
     }
 }

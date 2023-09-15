@@ -22,6 +22,9 @@ public class CadClient extends javax.swing.JFrame {
      */
     public CadClient() {
         initComponents();
+        if (this.cliente == null) {
+            
+        }
     }
 
     /**
@@ -393,35 +396,11 @@ public class CadClient extends javax.swing.JFrame {
 
     private void bntSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSaveActionPerformed
         // TODO add your handling code here:
-        try {
-            LocalDate data = convetStringtoDate(txtData.getText());
-            if(isEmpty() == false && data != null){
-                Endereco endecore = new Endereco(
-                        txtCEP.getText(),
-                        txtCid.getText(),
-                        txtEstado.getText(),
-                        txtBairro.getText(),
-                        txtRua.getText(),
-                        Integer.parseInt(txtNumb.getText()),
-                        Funcoes.getClientes().size()
-                );
-                Cliente client = new Cliente(
-                        Funcoes.getClientes().size(),
-                        txtNome.getText(),
-                        txtCPF.getText(),
-                        data,
-                        txtCel.getText(),
-                        txtCel.getText(),
-                        txtEmail.getText()
-                );
-                client.setEndereco(endecore);
-                
-            Funcoes.getClientes().add(client);
-            JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso");
-            }  
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+        if(cliente == null){
+            cadastrar();
+        }else{
         }
+       
         
     }//GEN-LAST:event_bntSaveActionPerformed
 
@@ -494,6 +473,8 @@ public class CadClient extends javax.swing.JFrame {
     private javax.swing.JTextField txtRua;
     // End of variables declaration//GEN-END:variables
     
+    Cliente cliente = null;
+    
     private boolean isEmpty(){
         if(txtNome.getText().isEmpty() == false &&
                 txtCPF.getText().isEmpty() == false &&
@@ -512,6 +493,38 @@ public class CadClient extends javax.swing.JFrame {
         }
     }
     
+    public void cadastrar(){
+         try {
+            LocalDate data = convetStringtoDate(txtData.getText());
+            if(isEmpty() == false && data != null){
+                Endereco endecore = new Endereco(
+                        txtCEP.getText(),
+                        txtCid.getText(),
+                        txtEstado.getText(),
+                        txtBairro.getText(),
+                        txtRua.getText(),
+                        Integer.parseInt(txtNumb.getText()),
+                        Funcoes.getClientes().size()
+                );
+                Cliente client = new Cliente(
+                        Funcoes.getClientes().size(),
+                        txtNome.getText(),
+                        txtCPF.getText(),
+                        data,
+                        txtCel.getText(),
+                        txtCel.getText(),
+                        txtEmail.getText()
+                );
+                client.setEndereco(endecore);
+                
+            Funcoes.getClientes().add(client);
+            JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso");
+            }  
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
+        }
+    }
+    
     private LocalDate convetStringtoDate(String data){
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/y");
@@ -521,5 +534,12 @@ public class CadClient extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data invalida");
             return null;
         }
+    }
+    
+    public void alterar(){
+        
+    }
+    
+    public void preencherdados(){
     }
 }

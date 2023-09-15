@@ -10,6 +10,7 @@ import melipona.view.ViwsCad.CadCargo;
 import melipona.view.ViwsCad.CadClient;
 import melipona.view.ViwsCad.cadVenda;
 import melipona.Control.Funcoes;
+import melipona.model.Cliente;
 import melipona.model.Funcionario;
 import melipona.view.ViwsCad.cadFormPagamento;
 
@@ -324,6 +325,11 @@ public class HomePage extends javax.swing.JFrame {
 
         mnConfigClient.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mnConfigClient.setText("Alterar Cliente");
+        mnConfigClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnConfigClientActionPerformed(evt);
+            }
+        });
         jMenu4.add(mnConfigClient);
 
         Sair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
@@ -433,6 +439,15 @@ public class HomePage extends javax.swing.JFrame {
         EstoqueView estoque = new EstoqueView();
         estoque.setVisible(true);
     }//GEN-LAST:event_EstoqueActionPerformed
+
+    private void mnConfigClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConfigClientActionPerformed
+        // TODO add your handling code here:
+        listClient listaCliente = new listClient(null, true);
+        Cliente cliente = listaCliente.getClienteSelecionado();
+        CadClient cadastro = new CadClient();
+        
+        
+    }//GEN-LAST:event_mnConfigClientActionPerformed
 
     /**
      * @param args the command line arguments
