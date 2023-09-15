@@ -13,13 +13,13 @@ public class FormaPG {
     private String forma;
     private boolean parcelar;
     private int maxParc;
-    private int juros;
+    private double juros;
     private boolean jurosAtv;
 
     public FormaPG() {
     }
 
-    public FormaPG(int idFormaPG, String forma, boolean parcelar, int maxParc, int juros, boolean jurosAtv) {
+    public FormaPG(int idFormaPG, String forma, boolean parcelar, int maxParc, double juros, boolean jurosAtv) {
         this.idFormaPG = idFormaPG;
         this.forma = forma;
         this.parcelar = parcelar;
@@ -60,11 +60,11 @@ public class FormaPG {
         this.maxParc = maxParc;
     }
 
-    public int getJuros() {
+    public double getJuros() {
         return juros;
     }
 
-    public void setJuros(int juros) {
+    public void setJuros(double juros) {
         this.juros = juros;
     }
 

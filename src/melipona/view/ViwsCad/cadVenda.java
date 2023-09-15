@@ -59,11 +59,9 @@ public class cadVenda extends javax.swing.JFrame {
         bntDeletProd = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
-        txtDesc = new javax.swing.JTextField();
         lblDesc = new javax.swing.JLabel();
         bntFormPag = new javax.swing.JLabel();
         cbForm = new javax.swing.JComboBox<>();
-        txtParcelas = new javax.swing.JTextField();
         lblParc = new javax.swing.JLabel();
         lblSubTotal = new javax.swing.JLabel();
         txtSubTotal = new javax.swing.JTextField();
@@ -83,6 +81,8 @@ public class cadVenda extends javax.swing.JFrame {
         lblNumber = new javax.swing.JLabel();
         bntCancelar = new javax.swing.JButton();
         bntSalvar = new javax.swing.JButton();
+        txtParc = new javax.swing.JFormattedTextField();
+        txtDesc = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -156,9 +156,6 @@ public class cadVenda extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblProdutos);
 
-        txtDesc.setBackground(new java.awt.Color(255, 255, 255));
-        txtDesc.setForeground(new java.awt.Color(0, 0, 0));
-
         lblDesc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDesc.setForeground(new java.awt.Color(0, 0, 0));
         lblDesc.setText("Desconto(%):");
@@ -173,9 +170,6 @@ public class cadVenda extends javax.swing.JFrame {
                 cbFormItemStateChanged(evt);
             }
         });
-
-        txtParcelas.setBackground(new java.awt.Color(255, 255, 255));
-        txtParcelas.setForeground(new java.awt.Color(0, 0, 0));
 
         lblParc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblParc.setForeground(new java.awt.Color(0, 0, 0));
@@ -252,6 +246,24 @@ public class cadVenda extends javax.swing.JFrame {
         bntSalvar.setForeground(new java.awt.Color(255, 255, 255));
         bntSalvar.setText("Salvar");
 
+        txtParc.setBackground(new java.awt.Color(255, 255, 255));
+        txtParc.setForeground(new java.awt.Color(0, 0, 0));
+        txtParc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtParc.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtParcCaretUpdate(evt);
+            }
+        });
+
+        txtDesc.setBackground(new java.awt.Color(255, 255, 255));
+        txtDesc.setForeground(new java.awt.Color(0, 0, 0));
+        txtDesc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtDesc.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtDescCaretUpdate(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -270,29 +282,34 @@ public class cadVenda extends javax.swing.JFrame {
                         .addComponent(BntAlterProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(97, 97, 97)
                         .addComponent(bntDeletProd, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblSubTotal)
+                            .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bntFormPag)
+                            .addComponent(cbForm, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtParc, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblParc)
+                                .addGap(18, 18, 18)))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDesc)
+                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bntFormPag)
-                                    .addComponent(cbForm, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblParc)
-                                    .addComponent(txtParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSubTotal)
-                                    .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDesc)
-                                    .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTotal)
-                                    .addComponent(txtTotal)))
+                                .addGap(18, 18, 18)
+                                .addComponent(lblTotal)
+                                .addContainerGap())
+                            .addComponent(txtTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,23 +395,22 @@ public class cadVenda extends javax.swing.JFrame {
                         .addComponent(bntFormPag)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblParc)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtParcelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblSubTotal)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblDesc)
+                        .addComponent(lblParc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtParc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTotal)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblTotal)
+                            .addComponent(lblDesc))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblSubTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -461,6 +477,7 @@ public class cadVenda extends javax.swing.JFrame {
         if(clienteSelecionado != null && listaProduto.getItem() != null){
             clienteSelecionado.getCarrinho().getItens().add(listaProduto.getItem());;
             preencherCarrinho(clienteSelecionado.getCarrinho());
+            total(clienteSelecionado.getCarrinho().getItens());
         }
     }//GEN-LAST:event_bntAddProdActionPerformed
 
@@ -487,6 +504,7 @@ public class cadVenda extends javax.swing.JFrame {
             txtID.setEnabled(false);
             if(clienteSelecionado.getCarrinho() != null){
                 preencherCarrinho(clienteSelecionado.getCarrinho());
+                total(clienteSelecionado.getCarrinho().getItens());
             }else{
                 Carrinho carrinho = new Carrinho();
                 clienteSelecionado.setCarrinho(carrinho);
@@ -497,8 +515,18 @@ public class cadVenda extends javax.swing.JFrame {
     private void cbFormItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFormItemStateChanged
         // TODO add your handling code here:
         int itemIndex = cbForm.getSelectedIndex();
-        txtParcelas.enable(Funcoes.getFormasPG().get(itemIndex).isParcelar());
+        txtParc.enable(Funcoes.getFormasPG().get(itemIndex).isParcelar());
     }//GEN-LAST:event_cbFormItemStateChanged
+
+    private void txtDescCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDescCaretUpdate
+        // TODO add your handling code here:
+        aplicarDesc();
+    }//GEN-LAST:event_txtDescCaretUpdate
+
+    private void txtParcCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtParcCaretUpdate
+        // TODO add your handling code here:
+        parcelar();
+    }//GEN-LAST:event_txtParcCaretUpdate
 
     /**
      * @param args the command line arguments
@@ -565,10 +593,10 @@ public class cadVenda extends javax.swing.JFrame {
     private javax.swing.JTextField txtCEP;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtClient;
-    private javax.swing.JTextField txtDesc;
+    private javax.swing.JFormattedTextField txtDesc;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNumber;
-    private javax.swing.JTextField txtParcelas;
+    private javax.swing.JFormattedTextField txtParc;
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotal;
@@ -577,6 +605,16 @@ public class cadVenda extends javax.swing.JFrame {
     Venda venda;
     Cliente clienteSelecionado;
     listClient pullClient = new listClient(null, true);
+    double totalCarrinho = 0;
+    
+    public void total(List<ItemCarrinho> Carrinho){
+        this.totalCarrinho = 0;
+        for (ItemCarrinho itemCarrinho : Carrinho) {
+            this.totalCarrinho += itemCarrinho.getSubtotal();
+            String totalFormat = NumberFormat.getCurrencyInstance().format(totalCarrinho);
+            txtSubTotal.setText(totalFormat);
+        }
+    }
     
     public void preencherPag(List<FormaPG> formas){
         for (FormaPG forma : formas) {
@@ -601,5 +639,39 @@ public class cadVenda extends javax.swing.JFrame {
         DefaultTableModel model = new DefaultTableModel(dados,columns);
         tblProdutos.setModel(model);
         
+    }
+    
+    public void dataPagamento(){
+        if (txtParc.getText().isEmpty() == false) {
+            int forma = cbForm.getSelectedIndex();
+            FormaPG Formapg = Funcoes.getFormasPG().get(forma);
+            
+            if(Formapg.isJurosAtv()){
+                this.totalCarrinho += totalCarrinho * (Formapg.getJuros() / 100);
+            }
+            
+            String totalFormat = NumberFormat.getCurrencyInstance().format(totalCarrinho);
+            txtTotal.setText(totalFormat);
+        }
+    }
+    
+    public void parcelar(){
+            if (txtParc.getText().isEmpty() == false) {
+            int forma = cbForm.getSelectedIndex();
+            FormaPG Formapg = Funcoes.getFormasPG().get(forma);
+            
+            
+            String totalFormat = NumberFormat.getCurrencyInstance().format(45);
+        
+        }
+    }
+    
+    public void aplicarDesc(){
+         if(txtDesc.getText().isEmpty() == false){
+            double total = this.totalCarrinho;
+            total -= total * (Double.parseDouble(txtDesc.getText()) / 100);
+            String totalFormat = NumberFormat.getCurrencyInstance().format(total);
+            txtTotal.setText(totalFormat);
+            }
     }
 }
