@@ -541,5 +541,16 @@ public class CadClient extends javax.swing.JFrame {
     }
     
     public void preencherdados(){
+        txtNome.setText(cliente.getNome());
+        txtCPF.setText(cliente.getCPF());
+        txtData.setText(toString().valueOf(cliente.getDataNasc()));
+        txtEmail.setText(cliente.getEmail());
+        txtCel.setText(cliente.getCelular());
+        txtCEP.setText(cliente.getEndereco().getCEP());
+        txtCid.setText(cliente.getEndereco().getCidade());
+        txtEstado.setText(cliente.getEndereco().getEstado());
+        txtBairro.setText(cliente.getEndereco().getBairro());
+        txtRua.setText(cliente.getEndereco().getNomeRua());
+        txtNumb.setText(toString().valueOf(cliente.getEndereco().getNumbResisdencia()));
     }
 }
