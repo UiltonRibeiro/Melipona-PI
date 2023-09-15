@@ -22,9 +22,6 @@ public class CadClient extends javax.swing.JFrame {
      */
     public CadClient() {
         initComponents();
-        if (this.cliente == null) {
-            
-        }
     }
 
     /**
@@ -474,6 +471,17 @@ public class CadClient extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     
     Cliente cliente = null;
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+         if (this.cliente != null) {
+            preencherdados();
+        }
+    }
     
     private boolean isEmpty(){
         if(txtNome.getText().isEmpty() == false &&
@@ -537,7 +545,17 @@ public class CadClient extends javax.swing.JFrame {
     }
     
     public void alterar(){
-        
+        cliente.setNome(txtNome.getText());
+        cliente.setCPF(txtCPF.getText());
+        cliente.setDataNasc(LocalDate.parse(txtData.getText()));
+        cliente.setEmail(txtEmail.getText());
+        cliente.setCelular(txtCel.getText());
+        cliente.getEndereco().setBairro(txtBairro.getText());
+        cliente.getEndereco().setCEP(txtCEP.getName());
+        cliente.getEndereco().setCidade(txtCid.getText());
+        cliente.getEndereco().setEstado(txtEstado.getText());
+        cliente.getEndereco().setNomeRua(txtRua.getText());
+        cliente.getEndereco().setNumbResisdencia(Integer.parseInt(txtNumb.getText()));
     }
     
     public void preencherdados(){

@@ -443,8 +443,13 @@ public class HomePage extends javax.swing.JFrame {
     private void mnConfigClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConfigClientActionPerformed
         // TODO add your handling code here:
         listClient listaCliente = new listClient(null, true);
-        Cliente cliente = listaCliente.getClienteSelecionado();
-        CadClient cadastro = new CadClient();
+        listaCliente.setVisible(true);
+        if(listaCliente.getClienteSelecionado() != null){
+            Cliente cliente = listaCliente.getClienteSelecionado();
+            CadClient cadastro = new CadClient();
+            cadastro.setCliente(cliente);
+            cadastro.setVisible(true);
+        }
         
         
     }//GEN-LAST:event_mnConfigClientActionPerformed
