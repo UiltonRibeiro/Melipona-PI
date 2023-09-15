@@ -13,7 +13,7 @@ public abstract class Pessoa {
     private String telefone;
     private String celular;
     private String Email;
-    private List<Endereco> enderecos = new ArrayList<>();
+    private Endereco endereco;
 
     public Pessoa() {
     }
@@ -84,42 +84,12 @@ public abstract class Pessoa {
         this.celular = celular;
     }
 
-    public List<Endereco> getEnderecos() {
-        return enderecos;
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
-    
-    Scanner Entrada = new Scanner(System.in);
-
-   public void newEndereco(){
-       
-       System.out.println("Informe o CEP:");
-       String CEP = Entrada.nextLine();
-       
-       System.out.println("Informe o Estado:");
-       String estado = Entrada.nextLine();
-       
-       System.out.println("Informe a cidade:");
-       String cidade = Entrada.nextLine();
-       
-       System.out.println("Informe o bairro:");
-       String bairro = Entrada.nextLine();
-       
-       System.out.println("Informe o nome da rua:");
-       String nomeRua = Entrada.nextLine();
-       
-       System.out.println("Informe o numero da residencia");
-       int numero = Entrada.nextInt();
-       
-       System.out.println("Complemento:");
-       String complemento = Entrada.nextLine();
-       
-       Endereco nvEndereco = new Endereco(0, CEP, cidade, estado,  bairro, nomeRua, numero, complemento, id);
-       enderecos.add(nvEndereco);
-   }
-    
     
 }

@@ -682,4 +682,8 @@ public class cadVenda extends javax.swing.JFrame {
             txtTotal.setText(totalFormat);
          }
     }
+    
+    public void preencherEndereço(Cliente cliente){
+        txtBairro
+    }
 }
