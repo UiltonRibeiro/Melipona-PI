@@ -657,15 +657,18 @@ public class cadVenda extends javax.swing.JFrame {
     }
     
     public void parcelar(){
+            double total = this.totalCarrinho;
             if (txtParc.getText().isEmpty() == false) {
             int forma = cbForm.getSelectedIndex();
-            FormaPG Formapg = Funcoes.getFormasPG().get(forma);
-            double total = this.totalCarrinho;
+            FormaPG Formapg = Funcoes.getFormasPG().get(forma);         
             total += total * (Double.parseDouble(txtParc.getText()) / 100);
             
             String totalFormat = NumberFormat.getCurrencyInstance().format(total);
             txtTotal.setText(totalFormat);
-        }
+        }else{
+            String totalFormat = NumberFormat.getCurrencyInstance().format(this.totalCarrinho);
+            txtTotal.setText(totalFormat);
+            }
     }
     
     public void aplicarDesc(){
