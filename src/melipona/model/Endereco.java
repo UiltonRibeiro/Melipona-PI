@@ -13,18 +13,15 @@ public class Endereco {
     private String bairro;
     private String nomeRua;
     private int numbResisdencia;
-    private String complemento;
     private int idCliente;
 
-    public Endereco(int id, String CEP, String cidade, String Estado, String bairro, String nomeRua, int numbResisdencia, String complemento, int idCliente) {
-        this.id = id;
+    public Endereco(String CEP, String cidade, String Estado, String bairro, String nomeRua, int numbResisdencia, int idCliente) {
         this.CEP = CEP;
         this.cidade = cidade;
         this.Estado = Estado;
         this.bairro = bairro;
         this.nomeRua = nomeRua;
         this.numbResisdencia = numbResisdencia;
-        this.complemento = complemento;
         this.idCliente = idCliente;
     }
 
@@ -83,6 +80,13 @@ public class Endereco {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-    
+
+    public String getNomeRua() {
+        return nomeRua;
+    }
+
+    public void setNomeRua(String nomeRua) {
+        this.nomeRua = nomeRua;
+    }
     
 }

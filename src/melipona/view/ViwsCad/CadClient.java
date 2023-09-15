@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import melipona.Control.Funcoes;
 import melipona.model.Cliente;
+import melipona.model.Endereco;
 
 /**
  *
@@ -395,6 +396,15 @@ public class CadClient extends javax.swing.JFrame {
         try {
             LocalDate data = convetStringtoDate(txtData.getText());
             if(isEmpty() == false && data != null){
+                Endereco endecore = new Endereco(
+                        txtCEP.getText(),
+                        txtCid.getText(),
+                        txtEstado.getText(),
+                        txtBairro.getText(),
+                        txtRua.getText(),
+                        Integer.parseInt(txtNumb.getText()),
+                        Funcoes.getClientes().size()
+                );
                 Cliente client = new Cliente(
                         Funcoes.getClientes().size(),
                         txtNome.getText(),
@@ -404,6 +414,8 @@ public class CadClient extends javax.swing.JFrame {
                         txtCel.getText(),
                         txtEmail.getText()
                 );
+                client.setEndereco(endecore);
+                
             Funcoes.getClientes().add(client);
             JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso");
             }  
