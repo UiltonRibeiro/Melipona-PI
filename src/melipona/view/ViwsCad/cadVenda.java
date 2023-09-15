@@ -516,6 +516,7 @@ public class cadVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
         int itemIndex = cbForm.getSelectedIndex();
         txtParc.enable(Funcoes.getFormasPG().get(itemIndex).isParcelar());
+        txtDesc.enable(!Funcoes.getFormasPG().get(itemIndex).isParcelar());
     }//GEN-LAST:event_cbFormItemStateChanged
 
     private void txtDescCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDescCaretUpdate
@@ -659,19 +660,23 @@ public class cadVenda extends javax.swing.JFrame {
             if (txtParc.getText().isEmpty() == false) {
             int forma = cbForm.getSelectedIndex();
             FormaPG Formapg = Funcoes.getFormasPG().get(forma);
+            double total = this.totalCarrinho;
+            total += total * (Double.parseDouble(txtParc.getText()) / 100);
             
-            
-            String totalFormat = NumberFormat.getCurrencyInstance().format(45);
-        
+            String totalFormat = NumberFormat.getCurrencyInstance().format(total);
+            txtTotal.setText(totalFormat);
         }
     }
     
     public void aplicarDesc(){
+         double total = this.totalCarrinho;
          if(txtDesc.getText().isEmpty() == false){
-            double total = this.totalCarrinho;
             total -= total * (Double.parseDouble(txtDesc.getText()) / 100);
             String totalFormat = NumberFormat.getCurrencyInstance().format(total);
             txtTotal.setText(totalFormat);
-            }
+            }else{
+            String totalFormat = NumberFormat.getCurrencyInstance().format(total);
+            txtTotal.setText(totalFormat);
+         }
     }
 }
