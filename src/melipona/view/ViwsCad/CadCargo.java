@@ -5,8 +5,9 @@
 package melipona.view.ViwsCad;
 
 import javax.swing.JOptionPane;
-import melipona.Control.Funcoes;
 import melipona.model.Cargo;
+import melipona.model.bancoDdados.BDDFuncionarios;
+import service.CargoService;
 
 /**
  *
@@ -19,6 +20,7 @@ public class CadCargo extends javax.swing.JFrame {
      */
     public CadCargo() {
         initComponents();
+        service = new CargoService();
     }
 
     /**
@@ -408,15 +410,17 @@ public class CadCargo extends javax.swing.JFrame {
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         // TODO add your handling code here:
-        int id = Funcoes.getFuncionarios().size();
+        int id = BDDFuncionarios.getFuncionarios().size();
         if(isEmpty() == false){
             if(validSalario(txtSalario.getText()) == true){
                 double salario = convertDouble(txtSalario.getText());
                 if(salario > 0){
                     Cargo nvCargo = new Cargo(id,txtNome.getText(),salario);
                     nvCargo = propriedades(nvCargo);
-                    Funcoes.getCargos().add(nvCargo);
-                    JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso");
+                    boolean success = service.createCargo(nvCargo);
+                    if (success == true) {
+                        JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso");
+                    }
                 }
             }
         }
@@ -487,6 +491,7 @@ public class CadCargo extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSalario;
     // End of variables declaration//GEN-END:variables
+    CargoService service;
     
     private boolean validSalario(String salario){
         salario = salario.replaceAll(",", ".");

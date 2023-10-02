@@ -6,6 +6,7 @@ package melipona.view.ViwsCad;
 
 import melipona.Control.Funcoes;
 import melipona.model.FormaPG;
+import service.FormasPGService;
 
 /**
  *
@@ -252,7 +253,7 @@ public class cadFormPagamento extends javax.swing.JFrame {
         forma.setParcelar(Parc);
         forma.setJurosAtv(juros);
         forma.setJuros(Integer.parseInt(txtJuros.getText()));
-        Funcoes.getFormasPG().add(forma);
+        formasPGService.CreateFormPG(forma);
     }//GEN-LAST:event_bntSaveActionPerformed
 
     /**
@@ -307,4 +308,5 @@ public class cadFormPagamento extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     boolean juros = false;
     boolean Parc = false;
+    FormasPGService formasPGService = new FormasPGService();
 }

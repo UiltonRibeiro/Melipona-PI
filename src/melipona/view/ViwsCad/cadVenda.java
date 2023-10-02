@@ -5,9 +5,6 @@
 package melipona.view.ViwsCad;
 
 import java.text.NumberFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import melipona.Control.Funcoes;
@@ -16,9 +13,9 @@ import melipona.model.Cliente;
 import melipona.model.FormaPG;
 import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
-import melipona.model.banco.BDDCarinho;
 import melipona.view.listClient;
 import melipona.view.listProduto;
+import service.FormasPGService;
 
 /**
  *
@@ -35,7 +32,7 @@ public class cadVenda extends javax.swing.JFrame {
         txtClient.setEnabled(false);
         txtID.setEnabled(false);
         
-        preencherPag(Funcoes.getFormasPG());
+        preencherPag(formasPGService.AllForm());
     }
 
     /**
@@ -257,10 +254,15 @@ public class cadVenda extends javax.swing.JFrame {
 
         txtDesc.setBackground(new java.awt.Color(255, 255, 255));
         txtDesc.setForeground(new java.awt.Color(0, 0, 0));
-        txtDesc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtDesc.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
         txtDesc.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtDescCaretUpdate(evt);
+            }
+        });
+        txtDesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescActionPerformed(evt);
             }
         });
 
@@ -515,8 +517,16 @@ public class cadVenda extends javax.swing.JFrame {
     private void cbFormItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFormItemStateChanged
         // TODO add your handling code here:
         int itemIndex = cbForm.getSelectedIndex();
-        txtParc.enable(Funcoes.getFormasPG().get(itemIndex).isParcelar());
-        txtDesc.enable(!Funcoes.getFormasPG().get(itemIndex).isParcelar());
+        
+        if(formasPGService.getFormaPG(itemIndex).isParcelar() == true){
+            txtParc.enable(true);
+            txtDesc.enable(false);
+            txtDesc.setText("");
+        }else{
+            txtParc.enable(false);
+            txtDesc.enable(true);
+            txtParc.setText("");
+        } 
     }//GEN-LAST:event_cbFormItemStateChanged
 
     private void txtDescCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDescCaretUpdate
@@ -528,6 +538,10 @@ public class cadVenda extends javax.swing.JFrame {
         // TODO add your handling code here:
         parcelar();
     }//GEN-LAST:event_txtParcCaretUpdate
+
+    private void txtDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescActionPerformed
 
     /**
      * @param args the command line arguments
@@ -608,6 +622,8 @@ public class cadVenda extends javax.swing.JFrame {
     listClient pullClient = new listClient(null, true);
     double totalCarrinho = 0;
     
+    FormasPGService formasPGService = new FormasPGService();
+    
     public void total(List<ItemCarrinho> Carrinho){
         this.totalCarrinho = 0;
         for (ItemCarrinho itemCarrinho : Carrinho) {
@@ -644,8 +660,8 @@ public class cadVenda extends javax.swing.JFrame {
     
     public void dataPagamento(){
         if (txtParc.getText().isEmpty() == false) {
-            int forma = cbForm.getSelectedIndex();
-            FormaPG Formapg = Funcoes.getFormasPG().get(forma);
+            int idForma = cbForm.getSelectedIndex();
+            FormaPG Formapg = formasPGService.getFormaPG(idForma);
             
             if(Formapg.isJurosAtv()){
                 this.totalCarrinho += totalCarrinho * (Formapg.getJuros() / 100);
@@ -659,8 +675,6 @@ public class cadVenda extends javax.swing.JFrame {
     public void parcelar(){
             double total = this.totalCarrinho;
             if (txtParc.getText().isEmpty() == false) {
-            int forma = cbForm.getSelectedIndex();
-            FormaPG Formapg = Funcoes.getFormasPG().get(forma);         
             total += total * (Double.parseDouble(txtParc.getText()) / 100);
             
             String totalFormat = NumberFormat.getCurrencyInstance().format(total);
@@ -674,7 +688,7 @@ public class cadVenda extends javax.swing.JFrame {
     public void aplicarDesc(){
          double total = this.totalCarrinho;
          if(txtDesc.getText().isEmpty() == false){
-            total -= total * (Double.parseDouble(txtDesc.getText()) / 100);
+            total -= total * (Double.parseDouble(txtDesc.getText().replaceAll(",", ".")) / 100);
             String totalFormat = NumberFormat.getCurrencyInstance().format(total);
             txtTotal.setText(totalFormat);
             }else{

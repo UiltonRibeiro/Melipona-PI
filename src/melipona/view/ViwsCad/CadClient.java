@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import melipona.Control.Funcoes;
 import melipona.model.Cliente;
 import melipona.model.Endereco;
+import melipona.model.bancoDdados.BDDCliente;
+import service.ClienteService;
 
 /**
  *
@@ -22,6 +24,7 @@ public class CadClient extends javax.swing.JFrame {
      */
     public CadClient() {
         initComponents();
+        service = new ClienteService();
     }
 
     /**
@@ -469,7 +472,8 @@ public class CadClient extends javax.swing.JFrame {
     private javax.swing.JTextField txtNumb;
     private javax.swing.JTextField txtRua;
     // End of variables declaration//GEN-END:variables
-    
+    ClienteService service;
+     
     Cliente cliente = null;
 
     public Cliente getCliente() {
@@ -502,7 +506,6 @@ public class CadClient extends javax.swing.JFrame {
     }
     
     public void cadastrar(){
-         try {
             LocalDate data = convetStringtoDate(txtData.getText());
             if(isEmpty() == false && data != null){
                 Endereco endecore = new Endereco(
@@ -512,10 +515,10 @@ public class CadClient extends javax.swing.JFrame {
                         txtBairro.getText(),
                         txtRua.getText(),
                         Integer.parseInt(txtNumb.getText()),
-                        Funcoes.getClientes().size()
+                        BDDCliente.getClientes().size()
                 );
                 Cliente client = new Cliente(
-                        Funcoes.getClientes().size(),
+                        BDDCliente.getClientes().size(),
                         txtNome.getText(),
                         txtCPF.getText(),
                         data,
@@ -525,12 +528,10 @@ public class CadClient extends javax.swing.JFrame {
                 );
                 client.setEndereco(endecore);
                 
-            Funcoes.getClientes().add(client);
-            JOptionPane.showMessageDialog(null, "Cadastro Realizado com Sucesso");
-            }  
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
-        }
+                boolean sucess = service.cadCliente(cliente);
+                if(sucess == true){
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                }}
     }
     
     private LocalDate convetStringtoDate(String data){
@@ -556,6 +557,7 @@ public class CadClient extends javax.swing.JFrame {
         cliente.getEndereco().setEstado(txtEstado.getText());
         cliente.getEndereco().setNomeRua(txtRua.getText());
         cliente.getEndereco().setNumbResisdencia(Integer.parseInt(txtNumb.getText()));
+        service.AlterCliente(cliente);
     }
     
     public void preencherdados(){

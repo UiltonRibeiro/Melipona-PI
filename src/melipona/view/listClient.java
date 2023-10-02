@@ -11,6 +11,8 @@ import javax.swing.table.DefaultTableModel;
 import melipona.Control.Funcoes;
 import melipona.model.Cliente;
 import melipona.model.Produto;
+import service.ClienteService;
+import service.FuncionarioService;
 
 /**
  *
@@ -24,7 +26,7 @@ public class listClient extends javax.swing.JDialog {
     public listClient(java.awt.Frame parent, boolean modal) {
         super(parent,modal);
         initComponents();
-        preencherAll(Funcoes.getClientes());
+        preencherAll(clienteService.AllCliente());
     }
 
     /**
@@ -187,7 +189,7 @@ public class listClient extends javax.swing.JDialog {
         // TODO add your handling code here:
         if(tblClientes.getSelectedRow() > -1 ){
             int idCliente = Integer.parseInt((String) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0)) ;
-            for (Cliente cliente : Funcoes.getClientes()) {
+            for (Cliente cliente : clienteService.AllCliente()) {
                 if(cliente.getId() == idCliente){
                     setClienteSelecionado(cliente);
                     this.dispose();
@@ -256,6 +258,7 @@ public class listClient extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
     
     public Cliente clienteSelecionado;
+    ClienteService clienteService = new ClienteService();
 
     public Cliente getClienteSelecionado() {
         return clienteSelecionado;

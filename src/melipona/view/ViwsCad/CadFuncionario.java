@@ -11,6 +11,9 @@ import javax.swing.JOptionPane;
 import melipona.Control.Funcoes;
 import melipona.model.Cargo;
 import melipona.model.Funcionario;
+import melipona.model.bancoDdados.BDDFuncionarios;
+import service.CargoService;
+import service.FuncionarioService;
 
 /**
  *
@@ -23,7 +26,7 @@ public class CadFuncionario extends javax.swing.JFrame {
      */
     public CadFuncionario() {
         initComponents();
-        listCargo( Funcoes.getCargos());
+        listCargo(cargoService.AllCargos());
     }
 
     /**
@@ -526,13 +529,13 @@ public class CadFuncionario extends javax.swing.JFrame {
                 convertStringDate(txtData.getText()) != null &&
                 EqualsSenha() == true)
         {
-            int id = Funcoes.getFuncionarios().size();
+            int id = BDDFuncionarios.getFuncionarios().size();
             Funcionario func = new Funcionario(
                 id,
                 txtNome.getText(),
                 txtCPF.getText(),
                 txtPIS.getText(),
-                pullCargo(cbCargo.getSelectedIndex()),
+                cargoService.getCliente(cbCargo.getSelectedIndex()),
                 convertStringDate(txtData.getText()),
                 txtTelefone.getText(),
                 txtCel.getText(),
@@ -540,8 +543,10 @@ public class CadFuncionario extends javax.swing.JFrame {
                 txtSenha.getText(),
                 txtUser.getText()
         );
-            Funcoes.getFuncionarios().add(func);
-            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+            boolean success = funcionarioService.createFunc(func);
+            if(success == true){
+                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+            }
         }
        
     }//GEN-LAST:event_bntSalvarActionPerformed
@@ -626,7 +631,10 @@ public class CadFuncionario extends javax.swing.JFrame {
     private javax.swing.JTextField txtTelefone;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
-   
+    
+    CargoService cargoService = new CargoService();
+    FuncionarioService funcionarioService = new FuncionarioService();
+    
     public void listCargo(List<Cargo> Cargos){
         for (Cargo cargo : Cargos) {
             cbCargo.addItem(
@@ -635,10 +643,6 @@ public class CadFuncionario extends javax.swing.JFrame {
                     )
             );
         }
-    }
-    
-    private Cargo pullCargo(int id){ 
-        return Funcoes.getCargos().get(id);
     }
     
     private LocalDate convertStringDate(String data){

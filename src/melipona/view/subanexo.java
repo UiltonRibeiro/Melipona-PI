@@ -8,7 +8,7 @@ import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import melipona.model.ItemCarrinho;
 import melipona.model.Produto;
-import melipona.model.banco.Estoque;
+import melipona.model.bancoDdados.Estoque;
 
 /**
  *

@@ -7,7 +7,7 @@ package melipona.view.ViwsCad;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
-import melipona.model.banco.Estoque;
+import melipona.model.bancoDdados.Estoque;
 import melipona.model.Produto;
 import melipona.view.EstoqueView;
 

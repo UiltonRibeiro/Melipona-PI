@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import melipona.model.banco.Estoque;
+import melipona.model.bancoDdados.Estoque;
 import melipona.model.Produto;
 
 /**

@@ -1,6 +1,6 @@
 package melipona.model;
 
-import melipona.model.banco.Estoque;
+import melipona.model.bancoDdados.Estoque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
