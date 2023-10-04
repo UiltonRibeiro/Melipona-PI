@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import melipona.model.Cliente;
+import melipona.model.Endereco;
 
 /**
  *
@@ -17,7 +18,7 @@ public class BDDCliente {
     static List<Cliente> Clientes = new ArrayList<>(){{
         add(new Cliente(0,"Teste","123",LocalDate.now(),"123","123","Email"));
     }};
-
+    
     public static List<Cliente> getClientes() {
         return Clientes;
     }

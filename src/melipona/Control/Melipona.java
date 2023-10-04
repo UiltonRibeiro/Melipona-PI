@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import melipona.model.Cargo;
+import melipona.model.Endereco;
 import melipona.model.Funcionario;
 import melipona.model.bancoDdados.BDDCargos;
+import melipona.model.bancoDdados.BDDCliente;
 import melipona.model.bancoDdados.BDDFuncionarios;
 import melipona.model.propriedades.PropriedadesCargo;
 import melipona.view.login;
@@ -23,6 +25,9 @@ public class Melipona {
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse("03/05/2003",formatter);
+        
+        Endereco endereco = new Endereco("132","SP","sp","Keralux","Rua",68, 0);
+        BDDCliente.getClientes().get(0).setEndereco(endereco);
         
         BDDFuncionarios.getFuncionarios().add(
                 new Funcionario(

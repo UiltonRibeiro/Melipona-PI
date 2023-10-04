@@ -1,24 +1,24 @@
 package melipona.model;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Random;
 
 
 public class Venda {
     private int idVenda;
     private LocalDate data;
     private Cliente Cliente;
-    private float valTotal;
+    private double valTotal;
     private Carrinho carrinho;
     private int desconto;
-    private float valFinal;
-    private Pagamento pagamento;
-    private boolean finalizada = false;
+    private double valFinal;
+    private FormaPG pagamento;
+    private Endereco endereco;
 
-    public Venda(int idVenda, LocalDate data) {
+    public Venda(int idVenda, LocalDate data, Cliente cliente, Carrinho carrinho) {
         this.idVenda = idVenda;
         this.data = data;
+        this.Cliente = cliente;
+        this.carrinho = carrinho;
     }
 
     public int getIdVenda() {
@@ -45,19 +45,11 @@ public class Venda {
         this.Cliente = Cliente;
     }
 
-    public boolean isFinalizada() {
-        return finalizada;
-    }
-
-    public void setFinalizada(boolean finalizada) {
-        this.finalizada = finalizada;
-    }
-
-    public float getValTotal() {
+    public double getValTotal() {
         return valTotal;
     }
 
-    public void setValTotal(float valTotal) {
+    public void setValTotal(double valTotal) {
         this.valTotal = valTotal;
     }
 
@@ -69,11 +61,11 @@ public class Venda {
         this.desconto = desconto;
     }
 
-    public float getValFinal() {
+    public double getValFinal() {
         return valFinal;
     }
 
-    public void setValFinal(float valFinal) {
+    public void setValFinal(double valFinal) {
         this.valFinal = valFinal;
     }
 
@@ -83,6 +75,22 @@ public class Venda {
 
     public void setCarrinho(Carrinho carrinho) {
         this.carrinho = carrinho;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public FormaPG getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(FormaPG pagamento) {
+        this.pagamento = pagamento;
     }
     
 }

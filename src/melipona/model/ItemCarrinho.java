@@ -31,8 +31,8 @@ public class ItemCarrinho {
         return subtotal;
     }
 
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+    public void setSubtotal() {
+        this.subtotal = produto.getPreço() * quant;
     }
     
 }

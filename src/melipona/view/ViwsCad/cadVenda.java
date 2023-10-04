@@ -5,17 +5,22 @@
 package melipona.view.ViwsCad;
 
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import melipona.Control.Funcoes;
 import melipona.model.Carrinho;
 import melipona.model.Cliente;
+import melipona.model.Endereco;
 import melipona.model.FormaPG;
 import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
+import melipona.model.bancoDdados.BDDVenda;
 import melipona.view.listClient;
 import melipona.view.listProduto;
+import service.CarrinhoService;
 import service.FormasPGService;
+import service.VendaService;
 
 /**
  *
@@ -178,6 +183,11 @@ public class cadVenda extends javax.swing.JFrame {
 
         txtSubTotal.setBackground(new java.awt.Color(255, 255, 255));
         txtSubTotal.setForeground(new java.awt.Color(0, 0, 0));
+        txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubTotalActionPerformed(evt);
+            }
+        });
 
         txtTotal.setBackground(new java.awt.Color(255, 255, 255));
         txtTotal.setForeground(new java.awt.Color(0, 0, 0));
@@ -242,6 +252,11 @@ public class cadVenda extends javax.swing.JFrame {
         bntSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntSalvar.setForeground(new java.awt.Color(255, 255, 255));
         bntSalvar.setText("Salvar");
+        bntSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntSalvarActionPerformed(evt);
+            }
+        });
 
         txtParc.setBackground(new java.awt.Color(255, 255, 255));
         txtParc.setForeground(new java.awt.Color(0, 0, 0));
@@ -477,7 +492,8 @@ public class cadVenda extends javax.swing.JFrame {
         listProduto listaProduto = new listProduto(null, true);
         listaProduto.setVisible(true);
         if(clienteSelecionado != null && listaProduto.getItem() != null){
-            clienteSelecionado.getCarrinho().getItens().add(listaProduto.getItem());;
+            clienteSelecionado.setCarrinho(carrinhoService.AddProduto(clienteSelecionado.getCarrinho(), listaProduto.getItem()));
+            
             preencherCarrinho(clienteSelecionado.getCarrinho());
             total(clienteSelecionado.getCarrinho().getItens());
         }
@@ -511,6 +527,7 @@ public class cadVenda extends javax.swing.JFrame {
                 Carrinho carrinho = new Carrinho();
                 clienteSelecionado.setCarrinho(carrinho);
             }
+            preencherEndereço(clienteSelecionado.getEndereco());
         }
     }//GEN-LAST:event_bntClientActionPerformed
 
@@ -542,6 +559,22 @@ public class cadVenda extends javax.swing.JFrame {
     private void txtDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescActionPerformed
+
+    private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
+        // TODO add your handling code here:
+        LocalDate hoje = LocalDate.now();
+        Venda nvVenda = new Venda(BDDVenda.getVendas().size(),hoje,clienteSelecionado,clienteSelecionado.getCarrinho());
+        nvVenda.setValTotal(totalCarrinho);
+        nvVenda.setValFinal(numbFormatDouble(txtTotal.getText()));
+        nvVenda.setEndereco(entrega());
+        nvVenda.setPagamento((FormaPG) cbForm.getSelectedItem());
+        
+        vendaService.saveVenda(nvVenda);
+    }//GEN-LAST:event_bntSalvarActionPerformed
+
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -616,13 +649,14 @@ public class cadVenda extends javax.swing.JFrame {
     private javax.swing.JTextField txtSubTotal;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
-    
-    Venda venda;
+
     Cliente clienteSelecionado;
     listClient pullClient = new listClient(null, true);
     double totalCarrinho = 0;
     
     FormasPGService formasPGService = new FormasPGService();
+    CarrinhoService carrinhoService = new CarrinhoService();
+    VendaService vendaService = new VendaService();
     
     public void total(List<ItemCarrinho> Carrinho){
         this.totalCarrinho = 0;
@@ -697,7 +731,29 @@ public class cadVenda extends javax.swing.JFrame {
          }
     }
     
-    public void preencherEndereço(Cliente cliente){
-        //txtBairro.setText(cliente.getEnderecos());
+    public void preencherEndereço(Endereco endereco){
+        txtBairro.setText(endereco.getBairro());
+        txtCEP.setText(endereco.getCEP());
+        txtCidade.setText(endereco.getCidade());
+        txtRua.setText(endereco.getNomeRua());
+        txtNumber.setText(toString().valueOf(endereco.getNumbResisdencia()));
+    }
+    
+    public double numbFormatDouble(String valor){
+        valor = valor.replaceAll("R$", "");
+        valor = valor.replaceAll(",", ".");
+        return Double.parseDouble(valor);
+    }
+    
+    public Endereco entrega(){
+        Endereco entrega = new Endereco(
+                txtCEP.getText(),
+                txtCidade.getText(),
+                cbEstado.getItemAt(cbEstado.getSelectedIndex()), 
+                txtBairro.getText(), 
+                txtRua.getText(), 
+                Integer.parseInt(txtNumber.getText()),
+                clienteSelecionado.getId());
+        return entrega;
     }
 }

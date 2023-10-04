@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
-import melipona.Control.Funcoes;
 import melipona.model.Cargo;
 import melipona.model.Funcionario;
 import melipona.model.bancoDdados.BDDFuncionarios;
