@@ -4,15 +4,20 @@
  */
 package melipona.view;
 
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import melipona.view.ViwsCad.CadProduto;
 import melipona.view.ViwsCad.CadFuncionario;
 import melipona.view.ViwsCad.CadCargo;
 import melipona.view.ViwsCad.CadClient;
 import melipona.view.ViwsCad.cadVenda;
-import melipona.Control.Funcoes;
 import melipona.model.Cliente;
 import melipona.model.Funcionario;
+import melipona.model.Venda;
 import melipona.view.ViwsCad.cadFormPagamento;
+import service.VendaService;
 
 /**
  *
@@ -77,7 +82,7 @@ public class HomePage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id", "Cliente", "Total", "Finalizada", "Forma Pagamento"
+                "Id", "Cliente", "Total", "Data", "Forma Pagamento"
             }
         ) {
             Class[] types = new Class [] {
@@ -384,8 +389,11 @@ public class HomePage extends javax.swing.JFrame {
 
     private void mnVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnVendaActionPerformed
         // TODO add your handling code here:
-        cadVenda CadVenda = new cadVenda();
+        cadVenda CadVenda = new cadVenda(null, true);
         CadVenda.setVisible(true);
+        if(service.AllVendas() != null){
+            preencherTable(service.AllVendas());
+        }
     }//GEN-LAST:event_mnVendaActionPerformed
 
     private void mnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnProdutoActionPerformed
@@ -523,6 +531,7 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JLabel vlTotalV;
     // End of variables declaration//GEN-END:variables
     private static Funcionario user;
+    private VendaService service= new VendaService();
 
     public static Funcionario getUser() {
         return user;
@@ -554,4 +563,26 @@ public class HomePage extends javax.swing.JFrame {
         mnConfigClient.enable(user.getPermisoes().isCadCliente());
         
     }
+    
+    public void preencherTable(List<Venda> vendas){
+        String columns[] = {"Id","Cliente","Total","Data","Forma Pagamento"};
+        String dados[][] = new String[vendas.size()][columns.length];
+        int i = 0;
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        
+        for (Venda venda: vendas) {
+            dados[i] = new String[]{
+                toString().valueOf(venda.getIdVenda()),
+                venda.getCliente().getNome(),
+                NumberFormat.getCurrencyInstance().format(venda.getValFinal()),
+                formatter.format(venda.getData()),
+                venda.getPagamento().getForma()
+            };
+            i++;
+        }
+        DefaultTableModel model = new DefaultTableModel(dados,columns);
+        tblVenda.setModel(model);
+    }
+    
 }

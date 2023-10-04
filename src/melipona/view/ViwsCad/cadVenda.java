@@ -4,11 +4,11 @@
  */
 package melipona.view.ViwsCad;
 
+import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import melipona.Control.Funcoes;
 import melipona.model.Carrinho;
 import melipona.model.Cliente;
 import melipona.model.Endereco;
@@ -26,12 +26,13 @@ import service.VendaService;
  *
  * @author uilto
  */
-public class cadVenda extends javax.swing.JFrame {
+public class cadVenda extends javax.swing.JDialog {
 
     /**
      * Creates new form cadVenda
      */
-    public cadVenda() {
+    public cadVenda(java.awt.Frame parent,boolean modal) {
+        super(parent,modal);
         initComponents();
         
         txtClient.setEnabled(false);
@@ -567,7 +568,7 @@ public class cadVenda extends javax.swing.JFrame {
         nvVenda.setValTotal(totalCarrinho);
         nvVenda.setValFinal(numbFormatDouble(txtTotal.getText()));
         nvVenda.setEndereco(entrega());
-        nvVenda.setPagamento((FormaPG) cbForm.getSelectedItem());
+        nvVenda.setPagamento(formasPGService.getFormaPG(cbForm.getSelectedIndex()));
         
         vendaService.saveVenda(nvVenda);
     }//GEN-LAST:event_bntSalvarActionPerformed
@@ -606,7 +607,14 @@ public class cadVenda extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new cadVenda().setVisible(true);
+                listProduto dialog = new listProduto(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter(){
+                    @Override
+                    public void windowClosing(WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -740,8 +748,7 @@ public class cadVenda extends javax.swing.JFrame {
     }
     
     public double numbFormatDouble(String valor){
-        valor = valor.replaceAll("R$", "");
-        valor = valor.replaceAll(",", ".");
+        valor = valor.replace("R$", "").replace(",", ".").replace(" ", "");
         return Double.parseDouble(valor);
     }
     

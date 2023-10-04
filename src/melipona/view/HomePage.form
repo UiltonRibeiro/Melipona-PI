@@ -243,7 +243,7 @@
                 <Column editable="true" title="Id" type="java.lang.String"/>
                 <Column editable="true" title="Cliente" type="java.lang.String"/>
                 <Column editable="true" title="Total" type="java.lang.String"/>
-                <Column editable="true" title="Finalizada" type="java.lang.String"/>
+                <Column editable="true" title="Data" type="java.lang.String"/>
                 <Column editable="true" title="Forma Pagamento" type="java.lang.String"/>
               </Table>
             </Property>
