@@ -72,8 +72,6 @@ public class Funcionario extends Pessoa {
         permisoes.setCadProduto(cargo.getPriedades().isCadProduto());
         permisoes.setCadVenda(cargo.getPriedades().isCadVenda());
         permisoes.setConcPermissao(cargo.getPriedades().isConcPermissao());
-        permisoes.setRelatorioEntrada(cargo.getPriedades().isRelatorioEntrada());
-        permisoes.setRelatorioVenda(cargo.getPriedades().isRelatorioVenda());
     }
     
    

@@ -7,6 +7,7 @@ package melipona.view.ViwsCad;
 import javax.swing.JOptionPane;
 import melipona.model.Cargo;
 import melipona.model.bancoDdados.BDDFuncionarios;
+import melipona.model.propriedades.PropriedadesCargo;
 import service.CargoService;
 
 /**
@@ -20,7 +21,6 @@ public class CadCargo extends javax.swing.JFrame {
      */
     public CadCargo() {
         initComponents();
-        service = new CargoService();
     }
 
     /**
@@ -44,15 +44,11 @@ public class CadCargo extends javax.swing.JFrame {
         cbCadVenda = new javax.swing.JCheckBox();
         cbCadFormPg = new javax.swing.JCheckBox();
         cbCadProduto = new javax.swing.JCheckBox();
-        cbDelFunc = new javax.swing.JCheckBox();
-        cbRelVenda = new javax.swing.JCheckBox();
-        cbDelProd = new javax.swing.JCheckBox();
-        cbDelVenda = new javax.swing.JCheckBox();
-        cbDelCargo = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cbAlterar = new javax.swing.JCheckBox();
         bntSalvar = new javax.swing.JButton();
         bntCancelar = new javax.swing.JButton();
 
@@ -124,56 +120,6 @@ public class CadCargo extends javax.swing.JFrame {
             }
         });
 
-        cbDelFunc.setBackground(new java.awt.Color(255, 255, 255));
-        cbDelFunc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbDelFunc.setForeground(new java.awt.Color(0, 0, 0));
-        cbDelFunc.setText("Excluir Funcionario");
-        cbDelFunc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDelFuncActionPerformed(evt);
-            }
-        });
-
-        cbRelVenda.setBackground(new java.awt.Color(255, 255, 255));
-        cbRelVenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbRelVenda.setForeground(new java.awt.Color(0, 0, 0));
-        cbRelVenda.setText("Gerar relátorio de Venda");
-        cbRelVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbRelVendaActionPerformed(evt);
-            }
-        });
-
-        cbDelProd.setBackground(new java.awt.Color(255, 255, 255));
-        cbDelProd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbDelProd.setForeground(new java.awt.Color(0, 0, 0));
-        cbDelProd.setText("Excluir Produto");
-        cbDelProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDelProdActionPerformed(evt);
-            }
-        });
-
-        cbDelVenda.setBackground(new java.awt.Color(255, 255, 255));
-        cbDelVenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbDelVenda.setForeground(new java.awt.Color(0, 0, 0));
-        cbDelVenda.setText("Excluir Venda");
-        cbDelVenda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDelVendaActionPerformed(evt);
-            }
-        });
-
-        cbDelCargo.setBackground(new java.awt.Color(255, 255, 255));
-        cbDelCargo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbDelCargo.setForeground(new java.awt.Color(0, 0, 0));
-        cbDelCargo.setText("Excluir Cargo");
-        cbDelCargo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDelCargoActionPerformed(evt);
-            }
-        });
-
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
@@ -225,6 +171,16 @@ public class CadCargo extends javax.swing.JFrame {
                     .addContainerGap(118, Short.MAX_VALUE)))
         );
 
+        cbAlterar.setBackground(new java.awt.Color(255, 255, 255));
+        cbAlterar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbAlterar.setForeground(new java.awt.Color(0, 0, 0));
+        cbAlterar.setText("Alterar dados cadastrais");
+        cbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbAlterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -233,17 +189,14 @@ public class CadCargo extends javax.swing.JFrame {
                 .addGap(58, 58, 58)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbCadFunc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbCadFunc)
+                            .addComponent(cbAlterar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbDelCargo)
-                            .addComponent(cbDelVenda)
-                            .addComponent(cbDelProd)
-                            .addComponent(cbRelVenda)
-                            .addComponent(cbDelFunc)
                             .addComponent(cbCadCargo)
                             .addComponent(cbCadProduto)
                             .addComponent(cbCadFormPg)
@@ -265,20 +218,12 @@ public class CadCargo extends javax.swing.JFrame {
                         .addComponent(cbCadProduto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbCadFormPg)
-                        .addGap(8, 8, 8)
-                        .addComponent(cbRelVenda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbDelFunc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbDelProd))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(cbAlterar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbDelVenda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbDelCargo)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         bntSalvar.setBackground(new java.awt.Color(0, 0, 0));
@@ -305,11 +250,14 @@ public class CadCargo extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(bntCancelar)
+                .addGap(18, 18, 18)
+                .addComponent(bntSalvar)
+                .addGap(141, 141, 141))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
-                        .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(189, 189, 189)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -321,21 +269,18 @@ public class CadCargo extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblSalario)
                                     .addComponent(txtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(jLabel1)))
                 .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(bntCancelar)
-                .addGap(18, 18, 18)
-                .addComponent(bntSalvar)
-                .addGap(141, 141, 141))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblSalario)
@@ -345,9 +290,9 @@ public class CadCargo extends javax.swing.JFrame {
                         .addComponent(lblNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(39, 39, 39)
+                .addGap(53, 53, 53)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addGap(117, 117, 117)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bntSalvar)
                     .addComponent(bntCancelar))
@@ -388,26 +333,6 @@ public class CadCargo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCadProdutoActionPerformed
 
-    private void cbDelFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDelFuncActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDelFuncActionPerformed
-
-    private void cbRelVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbRelVendaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbRelVendaActionPerformed
-
-    private void cbDelProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDelProdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDelProdActionPerformed
-
-    private void cbDelVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDelVendaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDelVendaActionPerformed
-
-    private void cbDelCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDelCargoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDelCargoActionPerformed
-
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         // TODO add your handling code here:
         int id = BDDFuncionarios.getFuncionarios().size();
@@ -415,12 +340,18 @@ public class CadCargo extends javax.swing.JFrame {
             if(validSalario(txtSalario.getText()) == true){
                 double salario = convertDouble(txtSalario.getText());
                 if(salario > 0){
+                    if(CargoEdit == null){
                     Cargo nvCargo = new Cargo(id,txtNome.getText(),salario);
                     nvCargo = propriedades(nvCargo);
                     boolean success = service.createCargo(nvCargo);
-                    if (success == true) {
+                     if (success == true) {
                         JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso");
                     }
+                    }
+                    CargoEdit.setPriedades(proprie());
+                    service.AlterCliente(CargoEdit);
+                    JOptionPane.showMessageDialog(null, "Alterado com sucesso");
+                    dispose();
                 }
             }
         }
@@ -430,6 +361,10 @@ public class CadCargo extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_bntCancelarActionPerformed
+
+    private void cbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbAlterarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,16 +404,12 @@ public class CadCargo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntCancelar;
     private javax.swing.JButton bntSalvar;
+    private javax.swing.JCheckBox cbAlterar;
     private javax.swing.JCheckBox cbCadCargo;
     private javax.swing.JCheckBox cbCadFormPg;
     private javax.swing.JCheckBox cbCadFunc;
     private javax.swing.JCheckBox cbCadProduto;
     private javax.swing.JCheckBox cbCadVenda;
-    private javax.swing.JCheckBox cbDelCargo;
-    private javax.swing.JCheckBox cbDelFunc;
-    private javax.swing.JCheckBox cbDelProd;
-    private javax.swing.JCheckBox cbDelVenda;
-    private javax.swing.JCheckBox cbRelVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -491,7 +422,16 @@ public class CadCargo extends javax.swing.JFrame {
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtSalario;
     // End of variables declaration//GEN-END:variables
-    CargoService service;
+    CargoService service = new CargoService();;
+    Cargo CargoEdit;
+
+    public Cargo getCargoEdit() {
+        return CargoEdit;
+    }
+
+    public void setCargoEdit(Cargo CargoEdit) {
+        this.CargoEdit = CargoEdit;
+    }
     
     private boolean validSalario(String salario){
         salario = salario.replaceAll(",", ".");
@@ -518,10 +458,19 @@ public class CadCargo extends javax.swing.JFrame {
         nvCargo.getPriedades().setCadCargo(cbCadCargo.isSelected());
         nvCargo.getPriedades().setCadFuncionario(cbCadFunc.isSelected());
         nvCargo.getPriedades().setCadProduto(cbCadProduto.isSelected());
-        nvCargo.getPriedades().setConcPermissao(cbDelProd.isSelected());
-        nvCargo.getPriedades().setRelatorioEntrada(cbRelVenda.isSelected());
         
         return nvCargo;
+    }
+    
+    private PropriedadesCargo proprie(){
+        PropriedadesCargo propriedades = new PropriedadesCargo();
+        propriedades.setCadCargo(cbCadCargo.isSelected());
+        propriedades.setCadForm(cbCadFormPg.isSelected());
+        propriedades.setCadFuncionario(cbCadFunc.isSelected());
+        propriedades.setCadProduto(cbCadProduto.isSelected());
+        propriedades.setCadVenda(cbCadVenda.isSelected());
+        propriedades.setConcPermissao(cbAlterar.isSelected());
+        return propriedades;
     }
     
     private boolean isEmpty(){
@@ -537,5 +486,18 @@ public class CadCargo extends javax.swing.JFrame {
         }else{
              return false;
         }  
+    }
+    
+    public void preendarDados(Cargo cargo){
+        if(cargo != null){
+            txtNome.setText(cargo.getNome());
+            txtSalario.setText(toString().valueOf(cargo.getSalario()));
+            cbCadFunc.setSelected(cargo.getPriedades().isCadFuncionario());
+            cbCadCargo.setSelected(cargo.getPriedades().isCadCargo());
+            cbCadVenda.setSelected(cargo.getPriedades().isCadVenda());
+            cbCadProduto.setSelected(cargo.getPriedades().isCadProduto());
+            cbCadFormPg.setSelected(cargo.getPriedades().isCadForm());
+            cbAlterar.setSelected(cargo.getPriedades().isConcPermissao());
+        }
     }
 }

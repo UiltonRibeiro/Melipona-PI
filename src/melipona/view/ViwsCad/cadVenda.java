@@ -16,8 +16,8 @@ import melipona.model.FormaPG;
 import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
 import melipona.model.bancoDdados.BDDVenda;
-import melipona.view.listClient;
-import melipona.view.listProduto;
+import melipona.view.lists.listClient;
+import melipona.view.lists.listProduto;
 import service.CarrinhoService;
 import service.FormasPGService;
 import service.VendaService;
@@ -571,6 +571,8 @@ public class cadVenda extends javax.swing.JDialog {
         nvVenda.setPagamento(formasPGService.getFormaPG(cbForm.getSelectedIndex()));
         
         vendaService.saveVenda(nvVenda);
+        clienteSelecionado.setCarrinho(null);
+        dispose();
     }//GEN-LAST:event_bntSalvarActionPerformed
 
     private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed

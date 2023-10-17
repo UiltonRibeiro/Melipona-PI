@@ -2,30 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package melipona.view;
+package melipona.view.lists;
 
 import java.awt.event.WindowEvent;
-import java.text.NumberFormat;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import melipona.model.ItemCarrinho;
-import melipona.model.Produto;
-import melipona.model.bancoDdados.Estoque;
+import melipona.model.Cliente;
+import service.ClienteService;
 
 /**
  *
  * @author uilto
  */
-public class listProduto extends javax.swing.JDialog {
+public class listClient extends javax.swing.JDialog {
 
     /**
      * Creates new form listClient
      */
-    public listProduto(java.awt.Frame parent,boolean modal) {
-        super(parent, modal);
+    public listClient(java.awt.Frame parent, boolean modal) {
+        super(parent,modal);
         initComponents();
-        preencherAll(Estoque.estoque);
+        preencherAll(clienteService.AllCliente());
     }
 
     /**
@@ -41,12 +38,12 @@ public class listProduto extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
+        txtCPF = new javax.swing.JTextField();
+        lblCPF = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblProdutos = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         bntVoltar = new javax.swing.JButton();
         bntImport = new javax.swing.JButton();
-        txtID = new javax.swing.JTextField();
-        lblID = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -54,7 +51,7 @@ public class listProduto extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Lista de Produto:");
+        jLabel1.setText("Lista de Cliente:");
 
         lblNome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblNome.setForeground(new java.awt.Color(0, 0, 0));
@@ -63,20 +60,32 @@ public class listProduto extends javax.swing.JDialog {
         txtNome.setBackground(new java.awt.Color(255, 255, 255));
         txtNome.setForeground(new java.awt.Color(0, 0, 0));
 
+        txtCPF.setBackground(new java.awt.Color(255, 255, 255));
+        txtCPF.setForeground(new java.awt.Color(0, 0, 0));
+        txtCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCPFActionPerformed(evt);
+            }
+        });
+
+        lblCPF.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCPF.setForeground(new java.awt.Color(0, 0, 0));
+        lblCPF.setText("CPF:");
+
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setForeground(new java.awt.Color(0, 0, 0));
 
-        tblProdutos.setBackground(new java.awt.Color(255, 255, 255));
-        tblProdutos.setForeground(new java.awt.Color(0, 0, 0));
-        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setBackground(new java.awt.Color(255, 255, 255));
+        tblClientes.setForeground(new java.awt.Color(0, 0, 0));
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Nome", "Quant", "Preço"
+                "Id", "Nome", "CPF"
             }
         ));
-        jScrollPane1.setViewportView(tblProdutos);
+        jScrollPane1.setViewportView(tblClientes);
 
         bntVoltar.setBackground(new java.awt.Color(255, 255, 255));
         bntVoltar.setForeground(new java.awt.Color(0, 0, 0));
@@ -97,31 +106,23 @@ public class listProduto extends javax.swing.JDialog {
             }
         });
 
-        txtID.setBackground(new java.awt.Color(255, 255, 255));
-        txtID.setForeground(new java.awt.Color(0, 0, 0));
-
-        lblID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblID.setForeground(new java.awt.Color(0, 0, 0));
-        lblID.setText("ID:");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(136, 136, 136)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 761, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblID)
-                            .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNome)
                             .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(154, 154, 154))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCPF)
+                            .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(232, 232, 232))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(56, 56, 56)
                 .addComponent(jLabel1)
@@ -131,24 +132,24 @@ public class listProduto extends javax.swing.JDialog {
                 .addComponent(bntVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bntImport)
-                .addGap(106, 106, 106))
+                .addGap(167, 167, 167))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblCPF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(36, 36, 36)
                         .addComponent(lblNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblID)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -164,7 +165,7 @@ public class listProduto extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(62, 62, 62)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,32 +176,27 @@ public class listProduto extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bntImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImportActionPerformed
-        // TODO add your handling code here:
-        try {
-            if (tblProdutos.getSelectedRow() >= 0) {
-                int idProduto = Integer.parseInt((String) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)); 
-                subanexo sub = new subanexo(null, true);
-                sub.setDados(Estoque.estoque.get(idProduto));
-                sub.setVisible(true);
-                if(sub.getItem() != null){
-                    setItem(sub.getItem());
-                    this.dispose();
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Selecione uma linha");
-            }
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao Importar");
-        }
-        
-    }//GEN-LAST:event_bntImportActionPerformed
-
     private void bntVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntVoltarActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_bntVoltarActionPerformed
+
+    private void bntImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntImportActionPerformed
+        // TODO add your handling code here:
+        if(tblClientes.getSelectedRow() > -1 ){
+            int idCliente = Integer.parseInt((String) tblClientes.getValueAt(tblClientes.getSelectedRow(), 0)) ;
+            for (Cliente cliente : clienteService.AllCliente()) {
+                if(cliente.getId() == idCliente){
+                    setClienteSelecionado(cliente);
+                    this.dispose();
+                }
+            }
+        }
+    }//GEN-LAST:event_bntImportActionPerformed
+
+    private void txtCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCPFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCPFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,21 +215,20 @@ public class listProduto extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(listClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                listProduto dialog = new listProduto(new javax.swing.JFrame(), true);
+                listClient dialog = new listClient(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter(){
                     @Override
                     public void windowClosing(WindowEvent e) {
@@ -251,39 +246,39 @@ public class listProduto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblID;
+    private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JTable tblProdutos;
-    private javax.swing.JTextField txtID;
+    private javax.swing.JTable tblClientes;
+    private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
     
-    public ItemCarrinho item;
+    public Cliente clienteSelecionado;
+    ClienteService clienteService = new ClienteService();
 
-    public ItemCarrinho getItem() {
-        return item;
+    public Cliente getClienteSelecionado() {
+        return clienteSelecionado;
     }
 
-    public void setItem(ItemCarrinho item) {
-        this.item = item;
+    public void setClienteSelecionado(Cliente clienteSelecionado) {
+        this.clienteSelecionado = clienteSelecionado;
     }
-    
-    public void preencherAll(List<Produto> listProduto){
+     
+    public void preencherAll(List<Cliente> listCliente){
        
-        String columns[] = {"ID","nome", "Quantidade","Preço",};
-        String dados[][] = new String[listProduto.size()][columns.length];
+        String columns[] = {"ID","nome", "CPF"};
+        String dados[][] = new String[listCliente.size()][columns.length];
         int i=0;
         
-        for (Produto produto : listProduto) {
+        for (Cliente cliente : listCliente) {
             dados[i] = new String[]{
-                String.valueOf(produto.getIdProduto()),
-                produto.getNome(),
-                String.valueOf(produto.getQuantEstoque()),
-                NumberFormat.getCurrencyInstance().format(produto.getPreço())
+                String.valueOf(cliente.getId()),
+                cliente.getNome(),
+                String.valueOf(cliente.getCPF()),
             };
             i++;
         }
         DefaultTableModel model = new DefaultTableModel(dados,columns);
-        tblProdutos.setModel(model);
+        tblClientes.setModel(model);
     }
 }

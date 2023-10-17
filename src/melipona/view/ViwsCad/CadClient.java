@@ -563,7 +563,7 @@ public class CadClient extends javax.swing.JFrame {
     public void preencherdados(){
         txtNome.setText(cliente.getNome());
         txtCPF.setText(cliente.getCPF());
-        txtData.setText(toString().valueOf(cliente.getDataNasc()));
+        txtData.setText( covertDataString(cliente.getDataNasc()));
         txtEmail.setText(cliente.getEmail());
         txtCel.setText(cliente.getCelular());
         txtCEP.setText(cliente.getEndereco().getCEP());
@@ -572,5 +572,11 @@ public class CadClient extends javax.swing.JFrame {
         txtBairro.setText(cliente.getEndereco().getBairro());
         txtRua.setText(cliente.getEndereco().getNomeRua());
         txtNumb.setText(toString().valueOf(cliente.getEndereco().getNumbResisdencia()));
+    }
+    
+    public String covertDataString(LocalDate data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/y");
+        String formatada = formatter.format(data);
+        return formatada;
     }
 }

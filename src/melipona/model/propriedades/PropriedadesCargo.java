@@ -14,9 +14,8 @@ public class PropriedadesCargo {
     boolean cadCargo = true;
     boolean cadProduto = true;
     boolean cadFuncionario = true;
-    boolean relatorioVenda = true;
-    boolean relatorioEntrada = true;
     boolean concPermissao = true;
+    boolean CadForm = true;
 
     public PropriedadesCargo() {
     }
@@ -51,23 +50,7 @@ public class PropriedadesCargo {
 
     public void setCadProduto(boolean cadProduto) {
         this.cadProduto = cadProduto;
-    }
-
-    public boolean isRelatorioVenda() {
-        return relatorioVenda;
-    }
-
-    public void setRelatorioVenda(boolean relatorioVenda) {
-        this.relatorioVenda = relatorioVenda;
-    }
-
-    public boolean isRelatorioEntrada() {
-        return relatorioEntrada;
-    }
-
-    public void setRelatorioEntrada(boolean relatorioEntrada) {
-        this.relatorioEntrada = relatorioEntrada;
-    }
+    } 
 
     public boolean isConcPermissao() {
         return concPermissao;
@@ -84,4 +67,14 @@ public class PropriedadesCargo {
     public void setCadFuncionario(boolean cadFuncionario) {
         this.cadFuncionario = cadFuncionario;
     }
+
+    public boolean isCadForm() {
+        return CadForm;
+    }
+
+    public void setCadForm(boolean CadForm) {
+        this.CadForm = CadForm;
+    }
+    
+    
 }

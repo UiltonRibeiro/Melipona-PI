@@ -4,10 +4,12 @@
  */
 package melipona.view;
 
+import melipona.view.lists.listClient;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import melipona.model.Cargo;
 import melipona.view.ViwsCad.CadProduto;
 import melipona.view.ViwsCad.CadFuncionario;
 import melipona.view.ViwsCad.CadCargo;
@@ -15,8 +17,10 @@ import melipona.view.ViwsCad.CadClient;
 import melipona.view.ViwsCad.cadVenda;
 import melipona.model.Cliente;
 import melipona.model.Funcionario;
+import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
 import melipona.view.ViwsCad.cadFormPagamento;
+import melipona.view.lists.listCargo;
 import service.VendaService;
 
 /**
@@ -44,13 +48,11 @@ public class HomePage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVenda = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        vlTotalV = new javax.swing.JLabel();
+        vlTotal = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        lcLiquid = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        vlLiquido = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -65,8 +67,6 @@ public class HomePage extends javax.swing.JFrame {
         mnClient = new javax.swing.JMenuItem();
         mnEstoque = new javax.swing.JMenu();
         Estoque = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        mnRtVenda = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         mnConfCargo = new javax.swing.JMenuItem();
         mnConfigFunc = new javax.swing.JMenuItem();
@@ -99,44 +99,37 @@ public class HomePage extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("R$:");
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Total vendas:");
 
-        vlTotalV.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        vlTotalV.setForeground(new java.awt.Color(0, 0, 0));
-        vlTotalV.setText("0,00");
+        vlTotal.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        vlTotal.setForeground(new java.awt.Color(0, 0, 0));
+        vlTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        vlTotal.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel2))
+                        .addGap(36, 36, 36)
+                        .addComponent(vlTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vlTotalV, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(42, 42, 42))
+                        .addGap(102, 102, 102)
+                        .addComponent(jLabel2)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(vlTotalV))
-                .addGap(28, 28, 28))
+                .addGap(18, 18, 18)
+                .addComponent(vlTotal)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -147,40 +140,33 @@ public class HomePage extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Lucro liquido:");
 
-        lcLiquid.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        lcLiquid.setForeground(new java.awt.Color(0, 0, 0));
-        lcLiquid.setText("0,00");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("R$:");
+        vlLiquido.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        vlLiquido.setForeground(new java.awt.Color(0, 0, 0));
+        vlLiquido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        vlLiquido.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel4))
+                        .addGap(85, 85, 85)
+                        .addComponent(vlLiquido, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lcLiquid, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(111, 111, 111)
+                        .addComponent(jLabel4)))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(jLabel4)
-                .addGap(55, 55, 55)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(lcLiquid))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(vlLiquido)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -210,12 +196,12 @@ public class HomePage extends javax.swing.JFrame {
                         .addComponent(jLabel7))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(quantV, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(87, 87, 87)))))
+                        .addComponent(jLabel8)))
                 .addContainerGap(72, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(quantV, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(161, 161, 161))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,9 +210,9 @@ public class HomePage extends javax.swing.JFrame {
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(quantV)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         cadVenda.setText("Cadastrar");
@@ -305,18 +291,15 @@ public class HomePage extends javax.swing.JFrame {
 
         jMenuBar1.add(mnEstoque);
 
-        jMenu3.setText("Relatório");
-
-        mnRtVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.SHIFT_DOWN_MASK));
-        mnRtVenda.setText("Venda");
-        jMenu3.add(mnRtVenda);
-
-        jMenuBar1.add(jMenu3);
-
         jMenu4.setText("Configurações");
 
         mnConfCargo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         mnConfCargo.setText("Alterar Cargo");
+        mnConfCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnConfCargoActionPerformed(evt);
+            }
+        });
         jMenu4.add(mnConfCargo);
 
         mnConfigFunc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
@@ -361,7 +344,7 @@ public class HomePage extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1389, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(123, 123, 123)
@@ -393,6 +376,9 @@ public class HomePage extends javax.swing.JFrame {
         CadVenda.setVisible(true);
         if(service.AllVendas() != null){
             preencherTable(service.AllVendas());
+            totalBruto(service.AllVendas());
+            totalLiquido(service.AllVendas());
+            quantV.setText(toString().valueOf(service.AllVendas().size()));
         }
     }//GEN-LAST:event_mnVendaActionPerformed
 
@@ -462,6 +448,20 @@ public class HomePage extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnConfigClientActionPerformed
 
+    private void mnConfCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConfCargoActionPerformed
+        // TODO add your handling code here:
+        listCargo listaCargo = new listCargo(null, true);
+        listaCargo.setVisible(true);
+        if(listaCargo.getCargoSelecionado() != null){
+            CadCargo edit = new CadCargo();
+            Cargo cargo = listaCargo.getCargoSelecionado();
+            edit.setCargoEdit(cargo);
+            edit.preendarDados(cargo);
+            edit.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_mnConfCargoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -502,20 +502,16 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JMenuItem Estoque;
     private javax.swing.JMenuItem Sair;
     private javax.swing.JMenu cadVenda;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lcLiquid;
     private javax.swing.JMenuItem mnClient;
     private javax.swing.JMenuItem mnConfCargo;
     private javax.swing.JMenuItem mnConfigClient;
@@ -524,11 +520,11 @@ public class HomePage extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnForm;
     private javax.swing.JMenuItem mnFunc;
     private javax.swing.JMenuItem mnProduto;
-    private javax.swing.JMenuItem mnRtVenda;
     private javax.swing.JMenuItem mnVenda;
     private javax.swing.JLabel quantV;
     private javax.swing.JTable tblVenda;
-    private javax.swing.JLabel vlTotalV;
+    private javax.swing.JLabel vlLiquido;
+    private javax.swing.JLabel vlTotal;
     // End of variables declaration//GEN-END:variables
     private static Funcionario user;
     private VendaService service= new VendaService();
@@ -583,6 +579,26 @@ public class HomePage extends javax.swing.JFrame {
         }
         DefaultTableModel model = new DefaultTableModel(dados,columns);
         tblVenda.setModel(model);
+    }
+    
+    public void totalBruto(List<Venda> vendas){
+        double total = 0;
+        for (Venda venda : vendas) {
+            total += venda.getValFinal();
+        }
+        vlTotal.setText(NumberFormat.getCurrencyInstance().format(total));
+    }
+    
+     public void totalLiquido(List<Venda> vendas){
+        double custo = 0;
+        double total = 0;
+        for (Venda venda : vendas) {
+            for (ItemCarrinho item: venda.getCarrinho().getItens()) {
+                custo += (item.getProduto().getCusto() * item.getQuant()); 
+            }
+            total += venda.getValFinal();
+        }
+        vlLiquido.setText(NumberFormat.getCurrencyInstance().format(total - custo));
     }
     
 }

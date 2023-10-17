@@ -14,9 +14,8 @@ public class PropriedadesFunc {
     boolean cadCargo = true;
     boolean cadProduto = true;
     boolean cadFuncionario = true;
-    boolean relatorioVenda = true;
-    boolean relatorioEntrada = true;
     boolean concPermissao = true;
+    boolean cadForm = true;
 
     public PropriedadesFunc() {
     }
@@ -53,22 +52,6 @@ public class PropriedadesFunc {
         this.cadProduto = cadProduto;
     }
 
-    public boolean isRelatorioVenda() {
-        return relatorioVenda;
-    }
-
-    public void setRelatorioVenda(boolean relatorioVenda) {
-        this.relatorioVenda = relatorioVenda;
-    }
-
-    public boolean isRelatorioEntrada() {
-        return relatorioEntrada;
-    }
-
-    public void setRelatorioEntrada(boolean relatorioEntrada) {
-        this.relatorioEntrada = relatorioEntrada;
-    }
-
     public boolean isConcPermissao() {
         return concPermissao;
     }
@@ -84,6 +67,13 @@ public class PropriedadesFunc {
     public void setCadFuncionario(boolean cadFuncionario) {
         this.cadFuncionario = cadFuncionario;
     }
-    
+
+    public boolean isCadForm() {
+        return cadForm;
+    }
+
+    public void setCadForm(boolean cadForm) {
+        this.cadForm = cadForm;
+    }
     
 }
