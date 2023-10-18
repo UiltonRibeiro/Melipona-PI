@@ -21,6 +21,7 @@ import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
 import melipona.view.ViwsCad.cadFormPagamento;
 import melipona.view.lists.listCargo;
+import melipona.view.lists.listFunc;
 import service.VendaService;
 
 /**
@@ -419,6 +420,15 @@ public class HomePage extends javax.swing.JFrame {
 
     private void mnConfigFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnConfigFuncActionPerformed
         // TODO add your handling code here:
+        listFunc lista = new listFunc(null, true);
+        lista.setVisible(true);
+        if(lista.getFuncionarioSelect() != null ){
+            Funcionario func = lista.getFuncionarioSelect();
+            CadFuncionario cadastroFunc = new CadFuncionario();
+            cadastroFunc.setEDIT(func);
+            cadastroFunc.preencher(func);
+            cadastroFunc.setVisible(true);
+        }
     }//GEN-LAST:event_mnConfigFuncActionPerformed
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed

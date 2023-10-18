@@ -29,7 +29,7 @@ public class FuncionarioService {
     }
     
     public Funcionario getFuncionario(int id){
-        return getFuncionario(id);
+        return BDDFuncionarios.getFuncionarios().get(id);
     }
     
     public boolean AlterFunci(Funcionario funcionario){

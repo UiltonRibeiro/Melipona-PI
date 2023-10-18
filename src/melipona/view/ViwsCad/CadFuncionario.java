@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import melipona.model.Cargo;
+import melipona.model.Endereco;
 import melipona.model.Funcionario;
 import melipona.model.bancoDdados.BDDFuncionarios;
 import service.CargoService;
@@ -525,29 +526,22 @@ public class CadFuncionario extends javax.swing.JFrame {
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         // TODO add your handling code here:
         if(isEmpty() == false && 
-                convertStringDate(txtData.getText()) != null &&
-                EqualsSenha() == true)
-        {
-            int id = BDDFuncionarios.getFuncionarios().size();
-            Funcionario func = new Funcionario(
-                id,
-                txtNome.getText(),
-                txtCPF.getText(),
-                txtPIS.getText(),
-                cargoService.getCliente(cbCargo.getSelectedIndex()),
-                convertStringDate(txtData.getText()),
-                txtTelefone.getText(),
-                txtCel.getText(),
-                txtEmail.getText(),
-                txtSenha.getText(),
-                txtUser.getText()
-        );
-            boolean success = funcionarioService.createFunc(func);
+                convertStringDate(txtData.getText()) != null && EqualsSenha() == true){
+            Funcionario func = moldFunc();
+            
+            boolean success;
+            if(EDIT != null){
+                func.setId(EDIT.getId());
+                success = funcionarioService.AlterFunci(func);
+            }else{
+                func.setEndereco(CriarEndereço(func.getId()));
+                success = funcionarioService.createFunc(func);
+            }
+            
             if(success == true){
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+                JOptionPane.showMessageDialog(null, "Dados salvos com sucesso");
             }
         }
-       
     }//GEN-LAST:event_bntSalvarActionPerformed
 
     private void cbCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCargoActionPerformed
@@ -633,6 +627,34 @@ public class CadFuncionario extends javax.swing.JFrame {
     
     CargoService cargoService = new CargoService();
     FuncionarioService funcionarioService = new FuncionarioService();
+    Funcionario EDIT;
+    
+    public Funcionario moldFunc(){
+        int id = BDDFuncionarios.getFuncionarios().size();
+            Funcionario func = new Funcionario(
+                id,
+                txtNome.getText(),
+                txtCPF.getText(),
+                txtPIS.getText(),
+                cargoService.getCliente(cbCargo.getSelectedIndex()),
+                convertStringDate(txtData.getText()),
+                txtTelefone.getText(),
+                txtCel.getText(),
+                txtEmail.getText(),
+                txtSenha.getText(),
+                txtUser.getText()
+        );
+        
+        return func;
+    }
+
+    public Funcionario getEDIT() {
+        return EDIT;
+    }
+
+    public void setEDIT(Funcionario EDIT) {
+        this.EDIT = EDIT;
+    }
     
     public void listCargo(List<Cargo> Cargos){
         for (Cargo cargo : Cargos) {
@@ -657,7 +679,6 @@ public class CadFuncionario extends javax.swing.JFrame {
     
     private boolean isEmpty(){
         if(
-                // validações para checar se está algum campo.
                 txtNome.getText().isEmpty() == false &&
                 txtCPF.getText().isEmpty() == false &&
                 txtBairro.getText().isEmpty() == false &&
@@ -690,5 +711,44 @@ public class CadFuncionario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campo de senha diferente");
             return false;
         }
+    }
+    
+    public void preencher(Funcionario func){
+        txtNome.setText(func.getNome());
+        txtCPF.setText(func.getCPF());
+        txtData.setText(covertDataString(func.getDataNasc()));
+        txtPIS.setText(func.getPIS());
+        
+        txtEmail.setText(func.getEmail());
+        txtCel.setText(func.getCelular());
+        txtTelefone.setText(func.getCelular());
+        txtCEP.setText(func.getEndereco().getCEP());
+        txtCidade.setText(func.getEndereco().getCidade());
+        txtEstado.setText(func.getEndereco().getEstado());
+        txtBairro.setText(func.getEndereco().getBairro());
+        txtRua.setText(func.getEndereco().getNomeRua());
+        txtNumber.setText(toString().valueOf(func.getEndereco().getNumbResisdencia()));
+        
+        txtUser.setText(func.getUsuario());
+        txtSenha.setText(func.getSenha());
+        txtCsenha.setText(func.getSenha());
+        
+    }
+    
+    public String covertDataString(LocalDate data){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/y");
+        String formatada = formatter.format(data);
+        return formatada;
+    }
+    
+    private Endereco CriarEndereço(int IdCliente){
+        Endereco endereco = new Endereco(
+                txtCEP.getText(), 
+                txtCidade.getText(), 
+                txtEstado.getText(), 
+                txtBairro.getText(), txtRua.getText(),
+                Integer.parseInt(txtNumber.getText()),
+                IdCliente);
+        return endereco;
     }
 }
