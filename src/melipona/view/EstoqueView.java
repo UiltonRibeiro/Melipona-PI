@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import melipona.model.bancoDdados.Estoque;
 import melipona.model.Produto;
+import service.EstoqueService;
 
 /**
  *
@@ -105,6 +106,11 @@ public class EstoqueView extends javax.swing.JFrame {
         bntDelete.setBackground(new java.awt.Color(255, 255, 255));
         bntDelete.setForeground(new java.awt.Color(0, 0, 0));
         bntDelete.setText("Excluir");
+        bntDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntDeleteActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
@@ -135,9 +141,7 @@ public class EstoqueView extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(lblNome)
-                        .addGap(284, 284, 284)))
+                    .addComponent(lblNome))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -226,7 +230,6 @@ public class EstoqueView extends javax.swing.JFrame {
         // TODO add your handling code here:
         CadProduto CadProduto = new CadProduto();
         CadProduto.setVisible(true);
-        CadProduto.edit = true;
         dispose();
     }//GEN-LAST:event_bntCreateActionPerformed
 
@@ -234,9 +237,12 @@ public class EstoqueView extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(tblProduto.getSelectedRow() > -1){
             CadProduto CadProduto = new CadProduto();
-            Produto produto = Estoque.getEstoque().get(
-                Integer.parseInt((String) tblProduto.getValueAt(
-                        tblProduto.getSelectedRow(), 0)));
+            Produto produto = estoqueService.getProduto(
+                    Integer.parseInt(
+                            (String) tblProduto.getValueAt(
+                                    tblProduto.getSelectedRow(), 0)
+                    )
+            );
             CadProduto.setDataEdit(produto);
             CadProduto.setVisible(true);
             dispose();
@@ -245,6 +251,16 @@ public class EstoqueView extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_bntEditActionPerformed
+
+    private void bntDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDeleteActionPerformed
+        // TODO add your handling code here:
+        estoqueService.removerProduto(
+                Integer.parseInt((String) tblProduto.getValueAt(
+                        tblProduto.getSelectedRow(), 
+                        0)) 
+        );
+        preencherAll(Estoque.estoque);
+    }//GEN-LAST:event_bntDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,7 +319,9 @@ public class EstoqueView extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
-
+        
+       EstoqueService estoqueService = new EstoqueService();
+    
         public void preencherAll(List<Produto> listProduto){
        
         String columns[] = {"ID","nome", "Quantidade","Preço",};

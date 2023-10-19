@@ -17,7 +17,6 @@ import melipona.model.FormaPG;
 import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
 import melipona.model.bancoDdados.BDDVenda;
-import melipona.model.bancoDdados.Estoque;
 import melipona.view.lists.listClient;
 import melipona.view.lists.listProduto;
 import melipona.view.subanexo;
@@ -528,6 +527,15 @@ public class cadVenda extends javax.swing.JDialog {
 
     private void bntDeletProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntDeletProdActionPerformed
         // TODO add your handling code here:
+        if(tblProdutos.getSelectedRow() > -1){
+            clienteSelecionado.setCarrinho(
+                    carrinhoService.remover(clienteSelecionado.getCarrinho(),
+                    tblProdutos.getSelectedRow(), 
+                    clienteSelecionado.getCarrinho().getItens().get(tblProdutos.getSelectedRow()).getProduto().getIdProduto(),
+                    clienteSelecionado.getCarrinho().getItens().get(tblProdutos.getSelectedRow()).getQuant())
+        );
+            preencherCarrinho(clienteSelecionado.getCarrinho());
+        }       
     }//GEN-LAST:event_bntDeletProdActionPerformed
 
     private void bntCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntCancelarActionPerformed

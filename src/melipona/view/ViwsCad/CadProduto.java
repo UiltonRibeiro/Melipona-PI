@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import melipona.model.bancoDdados.Estoque;
 import melipona.model.Produto;
 import melipona.view.EstoqueView;
+import service.EstoqueService;
 
 /**
  *
@@ -227,6 +228,9 @@ public class CadProduto extends javax.swing.JFrame {
             dispose();
         }else{
             cadastrar();
+            EstoqueView ESTOQUE = new EstoqueView();
+            ESTOQUE.setVisible(true);
+            dispose();   
         }
     }//GEN-LAST:event_bntSaveActionPerformed
 
@@ -284,6 +288,7 @@ public class CadProduto extends javax.swing.JFrame {
     
     public boolean edit = false;
     Produto produtoEdit;
+    EstoqueService estoqueService = new EstoqueService();
 
     public boolean isEdit() {
         return edit;
@@ -376,7 +381,7 @@ public class CadProduto extends javax.swing.JFrame {
                         quant,
                         custo
                 );
-                Estoque.getEstoque().add(produto);
+                estoqueService.CreateProduto(produto);
                 JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso");
             }
         }else{
@@ -395,7 +400,7 @@ public class CadProduto extends javax.swing.JFrame {
                         data,
                         custo
                 );
-                Estoque.getEstoque().add(produto);
+                estoqueService.CreateProduto(produto);
                 JOptionPane.showMessageDialog(null, "Cadastro feito com sucesso");
             }
         }
@@ -406,7 +411,7 @@ public class CadProduto extends javax.swing.JFrame {
         double preco = convertStringToDouble(txtPreco.getText());
         double custo = convertStringToDouble(txtCusto.getText());
         
-        if(txtCusto.getText().replaceAll("/", "").isEmpty() == true){
+        if(txtValid.getText().replaceAll("/", "").replaceAll(" ", "").isEmpty() == true){
             if(isEmpty() == false &&
                     quant > 0 &&
                     preco > 0 && 
