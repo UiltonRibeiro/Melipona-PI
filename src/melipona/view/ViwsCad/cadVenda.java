@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import melipona.model.Carrinho;
 import melipona.model.Cliente;
@@ -16,9 +17,12 @@ import melipona.model.FormaPG;
 import melipona.model.ItemCarrinho;
 import melipona.model.Venda;
 import melipona.model.bancoDdados.BDDVenda;
+import melipona.model.bancoDdados.Estoque;
 import melipona.view.lists.listClient;
 import melipona.view.lists.listProduto;
+import melipona.view.subanexo;
 import service.CarrinhoService;
+import service.EstoqueService;
 import service.FormasPGService;
 import service.VendaService;
 
@@ -486,6 +490,29 @@ public class cadVenda extends javax.swing.JDialog {
 
     private void BntAlterProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BntAlterProdActionPerformed
         // TODO add your handling code here:
+        if(tblProdutos.getSelectedRow() > -1){
+            subanexo alterProduto = new subanexo(null, true);
+            ItemCarrinho editItem = clienteSelecionado.getCarrinho().getItens().get(tblProdutos.getSelectedRow());
+            
+            alterProduto.setProduto(editItem.getProduto());
+            alterProduto.setDados(editItem.getProduto());
+            
+           clienteSelecionado.setCarrinho(
+                   carrinhoService.remover(
+                    clienteSelecionado.getCarrinho(), 
+                    tblProdutos.getSelectedRow(), 
+                    Integer.parseInt((String) tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0)), 
+                    editItem.getQuant())
+           ); 
+            
+            alterProduto.setVisible(true);
+            if(alterProduto.getItem() != null){
+                clienteSelecionado.setCarrinho(carrinhoService.AddProduto(clienteSelecionado.getCarrinho(), alterProduto.getItem()));
+                preencherCarrinho(clienteSelecionado.getCarrinho());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha");
+        }
     }//GEN-LAST:event_BntAlterProdActionPerformed
 
     private void bntAddProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAddProdActionPerformed
@@ -494,7 +521,6 @@ public class cadVenda extends javax.swing.JDialog {
         listaProduto.setVisible(true);
         if(clienteSelecionado != null && listaProduto.getItem() != null){
             clienteSelecionado.setCarrinho(carrinhoService.AddProduto(clienteSelecionado.getCarrinho(), listaProduto.getItem()));
-            
             preencherCarrinho(clienteSelecionado.getCarrinho());
             total(clienteSelecionado.getCarrinho().getItens());
         }
@@ -663,6 +689,7 @@ public class cadVenda extends javax.swing.JDialog {
     Cliente clienteSelecionado;
     listClient pullClient = new listClient(null, true);
     double totalCarrinho = 0;
+    EstoqueService estoqueService = new EstoqueService();
     
     FormasPGService formasPGService = new FormasPGService();
     CarrinhoService carrinhoService = new CarrinhoService();

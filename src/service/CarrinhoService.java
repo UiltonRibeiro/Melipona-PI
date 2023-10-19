@@ -4,15 +4,16 @@
  */
 package service;
 
+import javax.swing.JOptionPane;
 import melipona.model.Carrinho;
 import melipona.model.ItemCarrinho;
-import melipona.model.Produto;
 
 /**
  *
  * @author uilto
  */
 public class CarrinhoService {
+    EstoqueService estoqueService = new EstoqueService();
     
     public Carrinho AddProduto(Carrinho carrinho, ItemCarrinho itens){
         
@@ -39,4 +40,20 @@ public class CarrinhoService {
         return false;
     }
     
+    public Carrinho Alterar(Carrinho carrinho, ItemCarrinho item, int id){
+        for (int i = 0; i < carrinho.getItens().size(); i++) {
+            if(carrinho.getItens().get(i).getProduto() == item.getProduto()){
+                //estoqueService.devolverProduto(item.getProduto().getIdProduto(), carrinho.getItens().get(i).getQuant());
+                carrinho.getItens().set(id, item);
+            }
+        }
+        return carrinho;
+    }
+    
+    public Carrinho remover(Carrinho carrinho,int indexItem ,int idProduto, int quant){
+            carrinho.getItens().remove(indexItem);
+            estoqueService.devolverProduto(idProduto, quant);
+            return carrinho;
+    }
 }
+

@@ -9,6 +9,7 @@ import java.text.NumberFormat;
 import melipona.model.ItemCarrinho;
 import melipona.model.Produto;
 import melipona.model.bancoDdados.Estoque;
+import service.EstoqueService;
 
 /**
  *
@@ -181,12 +182,10 @@ public class subanexo extends javax.swing.JDialog {
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
         // TODO add your handling code here:
-        int quant = Integer.parseInt(txtQuant.getText());
-        this.item = new ItemCarrinho(produto, quant);
-        Estoque.estoque.get(
-                produto.getIdProduto()).setQuantEstoque(produto.getQuantEstoque() - quant);
-        this.dispose();
-        
+            int quant = Integer.parseInt(txtQuant.getText());
+            this.item = new ItemCarrinho(produto, quant);
+            estoqueService.pushProduto(produto.getIdProduto(), quant);
+            this.dispose();
     }//GEN-LAST:event_bntSalvarActionPerformed
 
     private void txtQuantCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtQuantCaretUpdate
@@ -261,7 +260,8 @@ public class subanexo extends javax.swing.JDialog {
     
     public Produto produto;
     ItemCarrinho item;
-
+    EstoqueService estoqueService = new EstoqueService();
+    
     public ItemCarrinho getItem() {
         return item;
     }
@@ -291,7 +291,6 @@ public class subanexo extends javax.swing.JDialog {
         double subtotal = produto.getPreço() * Integer.parseInt(quant);
         return subtotal;
     }
-    
     
     
 }

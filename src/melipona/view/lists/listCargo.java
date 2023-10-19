@@ -143,6 +143,7 @@ public class listCargo extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BntImport1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BntImport1ActionPerformed
