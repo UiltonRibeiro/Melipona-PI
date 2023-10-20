@@ -512,8 +512,7 @@ public class CadClient extends javax.swing.JFrame {
                     txtEstado.getText(),
                     txtBairro.getText(),
                     txtRua.getText(),
-                    Integer.parseInt(txtNumb.getText()),
-                    BDDCliente.getClientes().size()
+                    Integer.parseInt(txtNumb.getText())
             );
             Cliente client = new Cliente(
                     BDDCliente.getClientes().size(),

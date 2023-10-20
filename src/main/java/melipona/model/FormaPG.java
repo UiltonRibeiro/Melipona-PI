@@ -4,12 +4,20 @@
  */
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 /**
  *
  * @author uilto
  */
+@Entity
 public class FormaPG {
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idFormaPG;
     private String forma;
     private boolean parcelar;

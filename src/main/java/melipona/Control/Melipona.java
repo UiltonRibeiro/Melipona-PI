@@ -16,8 +16,6 @@ public class Melipona {
 
     public static void main(String[] args) {
 
-        Scanner Entrada = new Scanner(System.in);
-
         PropriedadesCargo propriedade = new PropriedadesCargo();
 
         BDDCargos.getCargos().add(new Cargo(0, "Admin", 1300.00));
@@ -26,7 +24,7 @@ public class Melipona {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse("03/05/2003", formatter);
 
-        Endereco endereco = new Endereco("132", "SP", "sp", "Keralux", "Rua", 68, 0);
+        Endereco endereco = new Endereco("132", "SP", "sp", "Keralux", "Rua", 68);
         BDDCliente.getClientes().get(0).setEndereco(endereco);
 
         BDDFuncionarios.getFuncionarios().add(

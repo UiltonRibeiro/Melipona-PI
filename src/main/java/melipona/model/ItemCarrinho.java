@@ -1,8 +1,15 @@
 package melipona.model;
 
-public class ItemCarrinho {
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
+//@Entity
+public class ItemCarrinho {
+    
+   // @OneToOne
     private Produto produto;
+    
+    private int idCarrinho;
     private int quant;
     private double subtotal;
 
@@ -10,6 +17,14 @@ public class ItemCarrinho {
         this.produto = produto;
         this.quant = quant;
         this.subtotal = produto.getPreço() * quant;
+    }
+
+    public int getIdCarrinho() {
+        return idCarrinho;
+    }
+
+    public void setIdCarrinho(int idCarrinho) {
+        this.idCarrinho = idCarrinho;
     }
 
     public Produto getProduto() {

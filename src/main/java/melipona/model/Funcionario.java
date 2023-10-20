@@ -1,15 +1,21 @@
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.Scanner;
 import melipona.model.propriedades.PropriedadesFunc;
 
+//@Entity
 public class Funcionario extends Pessoa {
 
     private String PIS;
+   // @OneToMany
     private Cargo cargo;
     private String usuario;
     private String senha;
+    //@OneToOne
     private PropriedadesFunc permisoes;
 
     public Funcionario() {

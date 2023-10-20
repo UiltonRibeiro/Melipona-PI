@@ -1,11 +1,19 @@
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 /**
  *
  * @author uilto
  */
+@Entity
 public class Endereco {
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String CEP;
     private String cidade;
@@ -13,16 +21,14 @@ public class Endereco {
     private String bairro;
     private String nomeRua;
     private int numbResisdencia;
-    private int idCliente;
 
-    public Endereco(String CEP, String cidade, String Estado, String bairro, String nomeRua, int numbResisdencia, int idCliente) {
+    public Endereco(String CEP, String cidade, String Estado, String bairro, String nomeRua, int numbResisdencia) {
         this.CEP = CEP;
         this.cidade = cidade;
         this.Estado = Estado;
         this.bairro = bairro;
         this.nomeRua = nomeRua;
         this.numbResisdencia = numbResisdencia;
-        this.idCliente = idCliente;
     }
 
     public String getCEP() {
@@ -71,14 +77,6 @@ public class Endereco {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(int idCliente) {
-        this.idCliente = idCliente;
     }
 
     public String getNomeRua() {

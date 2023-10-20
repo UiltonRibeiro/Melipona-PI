@@ -4,7 +4,9 @@
  */
 package service;
 
+import jakarta.persistence.EntityManager;
 import javax.swing.JOptionPane;
+import melipona.Control.JPAUtil;
 import melipona.model.Produto;
 import melipona.model.bancoDdados.Estoque;
 
@@ -15,12 +17,20 @@ import melipona.model.bancoDdados.Estoque;
 public class EstoqueService {
 
     public boolean CreateProduto(Produto produto) {
+         EntityManager em = JPAUtil.getEntityManager();
         try {
-            Estoque.estoque.add(produto);
+            em.getTransaction().begin();
+            em.persist(produto);
+            em.getTransaction().commit();
+            
+            //Estoque.estoque.add(produto);
             return true;
         } catch (Exception e) {
+            em.getTransaction().rollback();
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar");
             return false;
+        }finally{
+            JPAUtil.closeEntityManager();
         }
     }
 

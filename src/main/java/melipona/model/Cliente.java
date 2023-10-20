@@ -1,7 +1,10 @@
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
+@Entity
 public class Cliente extends Pessoa {
 
     private Carrinho carrinho;

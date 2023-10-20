@@ -1,18 +1,30 @@
 package melipona.model;
 
-import melipona.model.bancoDdados.Estoque;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+@Entity
 public class Carrinho {
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCarrinho;
     private List<ItemCarrinho> itens = new ArrayList<ItemCarrinho>();
-
-    Scanner Entrada = new Scanner(System.in);
+    boolean finalizado;
 
     public Carrinho() {
+    }
+
+    public boolean isFinalizado() {
+        return finalizado;
+    }
+
+    public void setFinalizado(boolean finalizado) {
+        this.finalizado = finalizado;
     }
 
     public List<ItemCarrinho> getItens() {

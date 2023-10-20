@@ -745,8 +745,8 @@ public class CadFuncionario extends javax.swing.JFrame {
                 txtCidade.getText(),
                 txtEstado.getText(),
                 txtBairro.getText(), txtRua.getText(),
-                Integer.parseInt(txtNumber.getText()),
-                IdCliente);
+                Integer.parseInt(txtNumber.getText())
+        );
         return endereco;
     }
 }

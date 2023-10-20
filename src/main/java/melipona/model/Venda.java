@@ -1,17 +1,26 @@
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import java.time.LocalDate;
 
+//@Entity
 public class Venda {
-
+   // @Id
     private int idVenda;
     private LocalDate data;
+    //@OneToMany
     private Cliente Cliente;
     private double valTotal;
+   // @OneToOne
     private Carrinho carrinho;
     private int desconto;
     private double valFinal;
+    //@OneToMany
     private FormaPG pagamento;
+   // @OneToOne
     private Endereco endereco;
 
     public Venda(int idVenda, LocalDate data, Cliente cliente, Carrinho carrinho) {

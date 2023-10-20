@@ -1,12 +1,20 @@
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import melipona.model.propriedades.PropriedadesCargo;
 
+@Entity
 public class Cargo {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
     private Double salario;
+    @OneToOne
     private PropriedadesCargo priedades = new PropriedadesCargo();
 
     ;

@@ -796,8 +796,8 @@ public class cadVenda extends javax.swing.JDialog {
                 cbEstado.getItemAt(cbEstado.getSelectedIndex()),
                 txtBairro.getText(),
                 txtRua.getText(),
-                Integer.parseInt(txtNumber.getText()),
-                clienteSelecionado.getId());
+                Integer.parseInt(txtNumber.getText())
+                );
         return entrega;
     }
 }

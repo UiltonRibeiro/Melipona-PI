@@ -1,12 +1,19 @@
 package melipona.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class Produto {
-
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idProduto;
     private String nome;
-    private double preço;
+    private double preco;
     private int quantEstoque;
     private LocalDate datavalid;
     private double custo;
@@ -17,7 +24,7 @@ public class Produto {
     public Produto(int idProduto, String nome, double preço, int quantEstoque, double custo) {
         this.idProduto = idProduto;
         this.nome = nome;
-        this.preço = preço;
+        this.preco = preço;
         this.quantEstoque = quantEstoque;
         this.custo = custo;
     }
@@ -25,7 +32,7 @@ public class Produto {
     public Produto(int idProduto, String nome, double preço, int quantEstoque, LocalDate datavalid, double custo) {
         this.idProduto = idProduto;
         this.nome = nome;
-        this.preço = preço;
+        this.preco = preço;
         this.quantEstoque = quantEstoque;
         this.datavalid = datavalid;
         this.custo = custo;
@@ -48,15 +55,15 @@ public class Produto {
     }
 
     public double getPreço() {
-        return preço;
+        return preco;
     }
 
     public void setPreço(double preço) {
-        this.preço = preço;
+        this.preco = preço;
     }
 
     public void setPreço(float preço) {
-        this.preço = preço;
+        this.preco = preço;
     }
 
     public int getQuantEstoque() {
